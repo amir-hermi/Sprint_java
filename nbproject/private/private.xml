@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/services/PanierService.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/GUI/HomeController.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/GUI/HomePage.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/GUI/CommandeGUIController.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/GUI/ProduitCom.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/entitiy/Panier.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/entitiy/CommandeProduit.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/entitiy/Utilisateur.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/services/CommandeService.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/entitiy/PanierProduit.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/services/ClientS.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/utils/MyConnexion.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/services/ServerS.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/values/style.css</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/GUI/PanierGUI.fxml</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/GUI/ProduitComponent.fxml</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/GUI/PanierGUIController.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/test/MainClass.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/GUI/Home.fxml</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/GUI/ProduitEditCommController.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/GUI/CommandeGUI.fxml</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/utils/MyListener.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/entitiy/Commande.java</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/GUI/ProduitEditComm.fxml</file>
+            <file>file:/E:/Workspace_Dev/java/SportTechJava/src/etud/entitiy/Produit.java</file>
+        </group>
+    </open-files>
+</project-private>

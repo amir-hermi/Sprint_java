@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane onMousePressed="#click" prefHeight="88.0" prefWidth="509.0" stylesheets="@../values/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ProduitEditCommController">
+   <styleClass>
+      <String fx:value="fruit-item" />
+      <String fx:value="shadow" />
+   </styleClass>
+   <children>
+      <HBox alignment="CENTER_LEFT" layoutX="-1.0" prefHeight="94.0" prefWidth="208.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="95.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../1.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="nameLabel" fill="#8a8a8a" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="nom">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#797878" strokeType="OUTSIDE" strokeWidth="0.0" text="Qte :">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="qte" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Text>
+            <Text fill="#797878" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Text>
+            <Text fx:id="priceLable" strokeType="OUTSIDE" strokeWidth="0.0" text="15$">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Text>
+            <Text fill="#797575" strokeType="OUTSIDE" strokeWidth="0.0" text="Taille :">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="taille" strokeType="OUTSIDE" strokeWidth="0.0" text="M">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Text>
+            <ImageView fx:id="delete" fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="150.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../../delete-icon-image-15.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
