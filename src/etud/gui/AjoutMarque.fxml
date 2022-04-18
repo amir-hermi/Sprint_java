@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="etud.gui.AjoutMarqueController">
+   <children>
+      <Label layoutX="60.0" layoutY="150.0" text="libelle" />
+      <TextField fx:id="mlibelle" layoutX="113.0" layoutY="145.0" />
+      <Button fx:id="Ajouter" layoutX="174.0" layoutY="207.0" mnemonicParsing="false" onAction="#AjoutMarque" text="Ajouter" />
+   </children>
+</AnchorPane>

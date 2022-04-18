@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="etud.gui.AjoutProduitController">
+   <children>
+      <Label layoutX="85.0" layoutY="27.0" text="prix" />
+      <Label layoutX="85.0" layoutY="71.0" text="image" />
+      <Label layoutX="85.0" layoutY="112.0" text="quantite" />
+      <Label layoutX="85.0" layoutY="159.0" text="taille" />
+      <Label layoutX="85.0" layoutY="200.0" text="nom" />
+      <Label layoutX="85.0" layoutY="243.0" text="marque" />
+      <Label layoutX="85.0" layoutY="293.0" text="souscategorie" />
+      <Label layoutX="85.0" layoutY="339.0" text="description" />
+      <TextField fx:id="pprix" layoutX="182.0" layoutY="22.0" promptText="prix" />
+      <TextField fx:id="pimage" layoutX="182.0" layoutY="66.0" text="image" />
+      <TextField fx:id="pquantite" layoutX="182.0" layoutY="107.0" text="quantite" />
+      <TextField fx:id="ptaille" layoutX="182.0" layoutY="154.0" text="taille" />
+      <TextField fx:id="pnom" layoutX="182.0" layoutY="195.0" text="nom" />
+      <TextField fx:id="pdescription" layoutX="182.0" layoutY="334.0" text="description" />
+      <Button fx:id="AjouterProduit" layoutX="220.0" layoutY="365.0" mnemonicParsing="false" onAction="#AjoutProduit" text="Ajouter" />
+      <ComboBox fx:id="combomarque" layoutX="180.0" layoutY="238.0" prefHeight="31.0" prefWidth="187.0" />
+      <ComboBox fx:id="combosouscat" layoutX="182.0" layoutY="288.0" prefHeight="31.0" prefWidth="187.0" />
+   </children>
+</AnchorPane>
