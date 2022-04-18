@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="658.0" prefWidth="1073.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.connexion3A30.gui.GestionUserController">
+   <children>
+      <TableView fx:id="tableviewuser" layoutX="310.0" layoutY="58.0" onMouseClicked="#fillforum" prefHeight="494.0" prefWidth="751.0">
+        <columns>
+         <TableColumn fx:id="username_col" prefWidth="75.0" text="Username" />
+          <TableColumn fx:id="last_name" prefWidth="75.0" text="Prenom" />
+            <TableColumn fx:id="email_col" prefWidth="75.0" text="Email" />
+            
+            <TableColumn fx:id="password_col" prefWidth="75.0" text="Password" />
+            <TableColumn fx:id="add_col" prefWidth="75.0" text="Addresse" />
+            <TableColumn fx:id="date_col" prefWidth="140.0" text="Date de naissance" />
+            <TableColumn fx:id="numero_col" prefWidth="79.0" text="Numero" />
+            <TableColumn fx:id="role_col" prefWidth="75.0" text="Role" />
+      
+        </columns>
+      </TableView>
+     <TextField fx:id="usernametf" layoutX="64.0" layoutY="218.0" promptText="Username" />
+      <TextField fx:id="lastname" layoutX="64.0" layoutY="97.0" promptText="Prenom" />
+      <TextField fx:id="emailtf" layoutX="64.0" layoutY="158.0" promptText="Email" />
+      
+    
+      <PasswordField fx:id="passwordpf" layoutX="64.0" layoutY="280.0" promptText="Password" />
+      <TextField fx:id="numerotf" layoutX="64.0" layoutY="409.0" promptText="Numero" />
+      <ComboBox fx:id="comborole" layoutX="64.0" layoutY="530.0" prefWidth="150.0" promptText="Role" />
+      <TextField fx:id="recherchetf" layoutX="390.0" layoutY="22.0" prefHeight="25.0" prefWidth="177.0" promptText="Recherche" />
+      <ComboBox fx:id="combotri" layoutX="855.0" layoutY="22.0" prefWidth="150.0" promptText="Tri" />
+      <Button layoutX="97.0" layoutY="588.0" mnemonicParsing="false" onAction="#ajouterUser" text="Ajouter">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="366.0" layoutY="588.0" mnemonicParsing="false" onAction="#modifierUser" text="Modifier">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <DatePicker fx:id="dpdate" layoutX="52.0" layoutY="474.0" promptText="Date de naissance" />
+      <Button layoutX="546.0" layoutY="588.0" mnemonicParsing="false" onAction="#supprimerUser" text="Supprimer">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="751.0" layoutY="588.0" mnemonicParsing="false" onAction="#imprimer" text="Imprimer">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btntri" layoutX="1005.0" layoutY="22.0" mnemonicParsing="false" onAction="#trilist" text="Tri" />
+      <Button fx:id="btnHome" layoutX="959.0" layoutY="590.0" onAction="#goBack" text="Home">
+         <graphic>
+            <ImageView fitHeight="27.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Resources/Icons/page-daccueil.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
