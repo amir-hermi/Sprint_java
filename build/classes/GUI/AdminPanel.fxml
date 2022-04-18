@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="835.0" prefWidth="1276.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AdminPanelController">
+   <children>
+      <BorderPane prefHeight="835.0" prefWidth="1284.0" style="-fx-background-color: rgba(0,0,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox alignment="TOP_CENTER" prefHeight="835.0" prefWidth="324.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="131.0" prefWidth="282.0" style="-fx-background-color: #003366;">
+                     <children>
+                        <ImageView fitHeight="76.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text fill="#ff8400" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SportTech">
+                           <font>
+                              <Font name="Berlin Sans FB Demi Bold" size="24.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="linear-grad-to-bottom" stylesheets="@../values/style.css" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Text fx:id="c" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu" text="Commandes">
+                           <font>
+                              <Font name="Bookman Old Style" size="21.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="50.0" top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Commandes">
+                           <font>
+                              <Font name="Bookman Old Style" size="21.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="50.0" top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Commandes">
+                           <font>
+                              <Font name="Bookman Old Style" size="21.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="50.0" top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Commandes">
+                           <font>
+                              <Font name="Bookman Old Style" size="21.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="50.0" top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Commandes">
+                           <font>
+                              <Font name="Bookman Old Style" size="21.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="50.0" top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Commandes">
+                           <font>
+                              <Font name="Bookman Old Style" size="21.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="50.0" top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: rgba(0,0,0,0);" styleClass="transparent" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="171.0" prefWidth="952.0" style="-fx-background-color: #cccccc;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des commandes">
+                           <font>
+                              <Font name="Bell MT Bold" size="36.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="22.0" prefWidth="952.0">
+                     <children>
+                        <Button fx:id="triter" mnemonicParsing="false" onAction="#triter" prefHeight="31.0" prefWidth="167.0" style="-fx-background-radius: 20; -fx-background-color: orange;" text="Triter">
+                           <HBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Berlin Sans FB Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <ComboBox prefWidth="150.0" promptText="Filtrer" style="-fx-background-color: orange; -fx-background-radius: 20;">
+                           <HBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                        <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TextField prefHeight="31.0" prefWidth="213.0" promptText="Rechercher" />
+                              <Button mnemonicParsing="false" text="Button">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <TableView fx:id="table" fixedCellSize="0.0" prefHeight="615.0" prefWidth="952.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="ref" prefWidth="75.0" text="Reference" />
+                      <TableColumn fx:id="montant" prefWidth="75.0" text="Montant" />
+                        <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
+                        <TableColumn fx:id="status" prefWidth="128.0" text="Stratus" />
+                        <TableColumn fx:id="user" prefWidth="269.0" text="Utilisateur" />
+                        <TableColumn fx:id="produits" prefWidth="269.0" text="Nb Produits" />
+                        <TableColumn fx:id="adresse" prefWidth="269.0" text="Adresse" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <VBox.margin>
+                        <Insets bottom="50.0" left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </TableView>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

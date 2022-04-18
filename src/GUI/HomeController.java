@@ -12,6 +12,7 @@ import etud.entitiy.Utilisateur;
 import etud.services.CommandeService;
 import etud.services.PanierService;
 import etud.utils.MyListener;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -75,84 +76,47 @@ public class HomeController implements Initializable {
     @FXML
     private ComboBox<String> tailleInput;
     private ArrayList<Produit> choosenP = new ArrayList<>();
+    private ArrayList<Commande> choosenC = new ArrayList<>();
+    private boolean isCommandeLayout = false;
     @FXML
     private Button inc;
     @FXML
     private Button dec;
     @FXML
-    private VBox commandeLayout;
+    private VBox PanierLayout;
     @FXML
     private Text montantLabel;
     float total = 0;
     @FXML
     private Button commander;
+    @FXML
+    private HBox qteLayout;
+    @FXML
+    private HBox orLayout;
+    @FXML
+    private Label tailleText;
+    @FXML
+    private ImageView panier;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        commandeLayout.setVisible(false);
-        ObservableList<String> options
-                = FXCollections.observableArrayList(
-                        "M",
-                        "XS",
-                        "S",
-                        "L",
-                        "XL",
-                        "XXL",
-                        "XXXL"
-                );
-        tailleInput.setItems(options);
-
-        PanierService cs = new PanierService();
-        if (cs.afficheProduit().size() > 0) {
-            setchoosenProduit(cs.afficheProduit().get(0));
-            listener = new MyListener() {
-                @Override
-                public void onClickListener(Produit p) {
-                    setchoosenProduit(p);
-                }
-            };
-
-        }
-        int colm = 0;
-        int row = 1;
-        try {
-            for (Produit p : cs.afficheProduit()) {
-
-                FXMLLoader fxmlloader = new FXMLLoader();
-                fxmlloader.setLocation(getClass().getResource("ProduitComponent.fxml"));
-                AnchorPane anchorPane = fxmlloader.load();
-                ProduitCom produitComm = fxmlloader.getController();
-                produitComm.setData(p, listener);
-                if (colm == 4) {
-                    colm = 0;
-                    row++;
-                }
-                grid.add(anchorPane, colm++, row);
-                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                grid.setPrefWidth(Region.USE_PREF_SIZE);
-
-                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                grid.setPrefHeight(Region.USE_PREF_SIZE);
-                GridPane.setMargin(anchorPane, new Insets(10));
-
-            }
-        } catch (IOException ex) {
-            System.out.println("error : " + ex.getMessage());
-        }
-
+        final String imageURI2 = new File("E:/Workspace_Dev/java/Sprint_java/panier.png").toURI().toString();
+        final Image image2 = new Image(imageURI2);
+        panier.setImage(image2);
+        showProduits();
     }
 
     public void setchoosenProduit(Produit p) {
         this.choosenP.clear();
         fruitNameLable.setText(p.getNom());
         fruitPriceLabel.setText(String.valueOf(p.getPrix()));
-        // image = new Image(getClass().getResourceAsStream("E:\\Workspace_Dev\\java\\SportTechJava\\activshop_panier_logo.png"));
-        //fruitImg.setImage(image);
+        final String imageURI = new File("C:/Users/hp/Desktop/amirtawtaw/public/images/" + p.getImage()).toURI().toString();
+        System.out.println(imageURI);
+        final Image image = new Image(imageURI);
+        fruitImg.setImage(image);
         this.choosenP.add(p);
     }
 
@@ -162,14 +126,27 @@ public class HomeController implements Initializable {
         fruitPriceLabel.setText(String.valueOf(p.getPrix()));
         qteInput.setText(String.valueOf(p.getQantite()));
         tailleInput.getSelectionModel().select(p.getTaille());
+        final String imageURI = new File("C:/Users/hp/Desktop/amirtawtaw/public/images/" + p.getImage()).toURI().toString();
+        System.out.println(imageURI);
+        final Image image = new Image(imageURI);
+        fruitImg.setImage(image);
+        this.choosenP.add(p);
+    }
+
+    public void setchoosenCommande(Commande c) {
+        this.choosenC.clear();
+        fruitNameLable.setText(c.getReference());
+        fruitPriceLabel.setText("");
+        tailleInput.getSelectionModel().select(c.getStatus());
 
         // image = new Image(getClass().getResourceAsStream("E:\\Workspace_Dev\\java\\SportTechJava\\activshop_panier_logo.png"));
         //fruitImg.setImage(image);
-        this.choosenP.add(p);
+        this.choosenC.add(c);
     }
 
     @FXML
     private void search(ActionEvent event) {
+        showProduits();
     }
 
     @FXML
@@ -178,15 +155,21 @@ public class HomeController implements Initializable {
         int qte = Integer.parseInt(qteInput.getText());
         String taille = this.tailleInput.getValue();
         //si la page est commande on modifie le produit
-        if (commandeLayout.isVisible()) {
+        if (PanierLayout.isVisible()) {
 
             ps.UpdateProduit(this.choosenP.get(0).getId(), qte, taille);
             this.total = 0;
             //Alert alert = new Alert(Alert.AlertType.WARNING, "Produit existe dans panier");
             //alert.show();
             //update les information de prodduit 
-            showCommande(event);
+            showPanier(event);
             // setchoosenProduit1(this.choosenP.get(0));
+        } else if (isCommandeLayout) {
+            CommandeService cs = new CommandeService();
+            cs.UpdateCommande(choosenC.get(0).getId(), tailleInput.getValue());
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Commande modifier avec succes");
+            alert.show();
+            showCommande(event);
         } else {
             // si la page est listProduit on ajoute le produit au panier
             // Utilisateur u =new Utilisateur(1);
@@ -202,14 +185,6 @@ public class HomeController implements Initializable {
                 }
             }
         }
-    }
-
-    @FXML
-    private void showReclamation(MouseEvent event) {
-    }
-
-    @FXML
-    private void showAccount(MouseEvent event) {
     }
 
     @FXML
@@ -231,8 +206,11 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    private void showCommande(ActionEvent event) {
-        commandeLayout.setVisible(true);
+    private void showPanier(ActionEvent event) {
+        chosenFruitCard.setStyle("-fx-background-color: #009B5A;\n"
+                + "    -fx-background-radius: 30;");
+        total = 0;
+        PanierLayout.setVisible(true);
         addToCart.setText("Modifier");
         grid.getChildren().clear();
         ObservableList<String> options
@@ -293,29 +271,168 @@ public class HomeController implements Initializable {
         if (total == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "vous devez remplir la panier");
             alert.show();
-        }else{
+        } else {
+            CommandeService cs = new CommandeService();
+            PanierService ps = new PanierService();
+            Commande c = new Commande();
+            Utilisateur u = new Utilisateur(1);
+            ArrayList<Produit> list = new ArrayList<>();
+            for (Panier panier : ps.listPanier(1)) {
+                list = panier.getListPorduits();
+            }
+            String date = LocalDateTime.now().toString();
+            c.setMontant(total);
+            c.setProduits(list);
+            c.setUser(u);
+            c.setStatus("En attente");
+            c.setReference(String.valueOf(new Random().nextInt(9999999)));
+            c.setDate_creation(date);
+            cs.ajoutCommande(c);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Commande effectuer avec succes");
+            alert.show();
+            total = 0;
+            showPanier(event);
+
+        }
+    }
+
+    @FXML
+    private void showCommande(ActionEvent event) {
+        final String imageURI = new File("E:/Workspace_Dev/java/Sprint_java/edit.png").toURI().toString();
+        System.out.println(imageURI);
+        final Image image = new Image(imageURI);
+        fruitImg.setImage(image);
+        chosenFruitCard.setStyle("-fx-background-color: #B018F5;\n"
+                + "    -fx-background-radius: 30;");
+        isCommandeLayout = true;
+        addToCart.setText("Modifier");
+
+        grid.getChildren().clear();
+        PanierLayout.setVisible(false);
+        tailleText.setText("Status");
+        orLayout.setVisible(false);
+        qteLayout.setVisible(false);
+        ObservableList<String> options
+                = FXCollections.observableArrayList(
+                        "En attente",
+                        "Confirmée",
+                        "Annulée",
+                        "En cours de preparation",
+                        "Livraison en cours",
+                        "Livrée"
+                );
+        tailleInput.setItems(options);
         CommandeService cs = new CommandeService();
-        PanierService ps = new PanierService();
-        Commande c = new Commande();
         Utilisateur u = new Utilisateur(1);
-        ArrayList<Produit> list = new ArrayList<>();
-        for (Panier panier : ps.listPanier(1)) {
-            list = panier.getListPorduits();
+        if (cs.listCommande(u).size() > 0) {
+            setchoosenCommande(cs.listCommande(u).get(0));
+            listener = new MyListener() {
+                @Override
+                public void onClickListener(Commande c) {
+                    setchoosenCommande(c);
+                }
+            };
         }
-        String date = LocalDateTime.now().toString();
-        c.setMontant(total);
-        c.setProduits(list);
-        c.setUser(u);
-        c.setStatus("En attente");
-        c.setReference(String.valueOf(new Random().nextInt(9999999)));
-        c.setDate_creation(date);
-        cs.ajoutCommande(c);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Commande effectuer avec succes");
-        alert.show();
-        total=0;
-        showCommande(event);
-        
+        int colm = 0;
+        int row = 1;
+        try {
+
+            for (Commande c : cs.listCommande(u)) {
+                int totalP = 0;
+                for (Produit p : c.getProduits()) {
+                    totalP = totalP + 1;
+                }
+                FXMLLoader fxmlloader = new FXMLLoader();
+                fxmlloader.setLocation(getClass().getResource("CommandeGUI.fxml"));
+                AnchorPane anchorPane = fxmlloader.load();
+                CommandeGUIController commController = fxmlloader.getController();
+                commController.setData(listener, c, totalP);
+                if (colm == 1) {
+                    colm = 0;
+                    row++;
+                }
+                grid.add(anchorPane, colm++, row);
+
+                /* scroll.setMinWidth(Region.USE_COMPUTED_SIZE);
+                scroll.setMaxWidth(Region.USE_COMPUTED_SIZE);
+                scroll.setPrefWidth(Region.USE_COMPUTED_SIZE);
+               // scroll.setPrefWidth(Region.USE_PREF_SIZE);
+                scroll.setMinHeight(Region.USE_COMPUTED_SIZE);
+                scroll.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                scroll.setMaxHeight(Region.USE_COMPUTED_SIZE);
+                //scroll.setPrefHeight(Region.USE_PREF_SIZE);*/
+                GridPane.setMargin(anchorPane, new Insets(5));
+
+            }
+        } catch (IOException ex) {
+            System.out.println("error : " + ex.getMessage());
         }
+
+    }
+
+    @FXML
+    private void showProduits(ActionEvent event) {
+        showProduits();
+    }
+
+    private void showProduits() {
+
+        chosenFruitCard.setStyle("-fx-background-color: #F16C31;\n"
+                + "    -fx-background-radius: 30;");
+        grid.getChildren().clear();
+        PanierLayout.setVisible(false);
+        ObservableList<String> options
+                = FXCollections.observableArrayList(
+                        "M",
+                        "XS",
+                        "S",
+                        "L",
+                        "XL",
+                        "XXL",
+                        "XXXL"
+                );
+        tailleInput.setItems(options);
+
+        PanierService cs = new PanierService();
+        if (cs.afficheProduit().size() > 0) {
+            setchoosenProduit(cs.afficheProduit().get(0));
+            listener = new MyListener() {
+                @Override
+                public void onClickListener(Produit p) {
+                    setchoosenProduit(p);
+                }
+            };
+
+        }
+        int colm = 0;
+        int row = 1;
+        try {
+            for (Produit p : cs.afficheProduit()) {
+
+                FXMLLoader fxmlloader = new FXMLLoader();
+                fxmlloader.setLocation(getClass().getResource("ProduitComponent.fxml"));
+                AnchorPane anchorPane = fxmlloader.load();
+                ProduitCom produitComm = fxmlloader.getController();
+                produitComm.setData(p, listener);
+                if (colm == 4) {
+                    colm = 0;
+                    row++;
+                }
+                grid.add(anchorPane, colm++, row);
+                /* grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_PREF_SIZE);
+
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_PREF_SIZE);*/
+                GridPane.setMargin(anchorPane, new Insets(10));
+
+            }
+        } catch (IOException ex) {
+            System.out.println("error : " + ex.getMessage());
+        }
+
     }
 
 }

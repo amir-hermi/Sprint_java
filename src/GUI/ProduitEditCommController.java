@@ -7,11 +7,13 @@ package GUI;
 
 import etud.entitiy.Produit;
 import etud.utils.MyListener;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -35,6 +37,8 @@ private MyListener listenner;
     private Text taille;
     @FXML
     private ImageView delete;
+    @FXML
+    private ImageView img;
 
     /**
      * Initializes the controller class.
@@ -56,7 +60,12 @@ private MyListener listenner;
         priceLable.setText(String.valueOf(produit.getPrix()) );
         qte.setText(String.valueOf(produit.getQantite()));
         taille.setText(produit.getTaille());
-       // Image image = new Image(getClass().getResourceAsStream("E:\\Workspace_Dev\\java\\SportTechJava\\activshop_panier_logo.png"));
-    }
+        final String imageURI = new File("E:/Workspace_Dev/java/Sprint_java/delete.png").toURI().toString();
+        final Image image = new Image(imageURI);
+        delete.setImage(image);
+        final String imageURI2 = new File("C:/Users/hp/Desktop/amirtawtaw/public/images/" + p.getImage()).toURI().toString();
+        final Image image2 = new Image(imageURI2);
+        img.setImage(image2);
+            }
     
 }

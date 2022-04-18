@@ -106,7 +106,8 @@ public class Utilisateur implements Serializable{
 
     @Override
     public String toString() {
-        return "Utilisateur{" + "username=" + username + ", lastname=" + lastname + ", email=" + email + ", tel=" + tel + ", password=" + password + ", etat=" + etat + ", panier=" + panier + ", listCommande=" + listCommande + '}';
+        //return "Utilisateur{" + "username=" + username + ", lastname=" + lastname + ", email=" + email + ", tel=" + tel + ", password=" + password + ", etat=" + etat + ", panier=" + panier + ", listCommande=" + listCommande + '}';
+        return  username ;
     }
     
     

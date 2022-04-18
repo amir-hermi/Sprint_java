@@ -1,11 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CommandeGUIController">
-    
+<AnchorPane onMousePressed="#click" prefHeight="88.0" prefWidth="1042.0" stylesheets="@../values/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CommandeGUIController">
+   <styleClass>
+      <String fx:value="fruit-item" />
+      <String fx:value="shadow" />
+   </styleClass>
+   <children>
+      <HBox alignment="CENTER_LEFT" layoutX="-2.0" prefHeight="88.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fx:id="nameLabel" fill="#8a8a8a" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Ref : ">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="ref" strokeType="OUTSIDE" strokeWidth="0.0" text="11111111">
+               <font>
+                  <Font name="Century Gothic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#797878" strokeType="OUTSIDE" strokeWidth="0.0" text="Montant : ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+            </Text>
+            <Text fx:id="montant" strokeType="OUTSIDE" strokeWidth="0.0" text="15$">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="Century Schoolbook Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#797575" strokeType="OUTSIDE" strokeWidth="0.0" text="Total produit : ">
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="total_produit" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#797575" strokeType="OUTSIDE" strokeWidth="0.0" text="Date creation : ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+            </Text>
+            <Text fx:id="date" strokeType="OUTSIDE" strokeWidth="0.0" text="date">
+               <font>
+                  <Font name="Century Schoolbook Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#797575" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse : ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+            </Text>
+            <Text fx:id="adresse" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="Century Schoolbook Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#797575" strokeType="OUTSIDE" strokeWidth="0.0" text="Status : ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+            </Text>
+            <Text fx:id="status" strokeType="OUTSIDE" strokeWidth="0.0" text="adresse">
+               <font>
+                  <Font name="Century Schoolbook Bold" size="15.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+   </children>
 </AnchorPane>

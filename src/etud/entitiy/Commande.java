@@ -14,7 +14,7 @@ import java.util.Date;
  * @author hp
  */
 public class Commande implements Serializable{
-    private int id ;
+    private int id , nbP ;
     private String date_creation;
     private String status ,reference;
     private Float montant;
@@ -23,6 +23,14 @@ public class Commande implements Serializable{
 
     public Commande() {
         
+    }
+
+    public int getNbP() {
+        return nbP;
+    }
+
+    public void setNbP(int nbP) {
+        this.nbP = nbP;
     }
 
     public Commande(String date_creation, String status, String reference, Utilisateur user) {

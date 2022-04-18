@@ -27,11 +27,9 @@ public class HomePage extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root= FXMLLoader.load(getClass().getResource("Home.fxml"));
-            
-            Scene scene = new Scene(root, 500, 500);
-            
-            primaryStage.setTitle("Hello World!");
+            Parent root= FXMLLoader.load(getClass().getResource("AdminPanel.fxml")); 
+            Scene scene = new Scene(root, 1200, 800);            
+            primaryStage.setTitle("SportTech");
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException ex) {

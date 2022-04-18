@@ -5,6 +5,7 @@
  */
 package etud.utils;
 
+import etud.entitiy.Commande;
 import etud.entitiy.Produit;
 
 /**
@@ -13,5 +14,7 @@ import etud.entitiy.Produit;
  */
 public class MyListener {
     public void onClickListener(Produit p){       
+    }
+    public void onClickListener(Commande c){       
     }
 }

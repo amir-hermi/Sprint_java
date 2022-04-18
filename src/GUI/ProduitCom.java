@@ -8,6 +8,7 @@ package GUI;
 import etud.entitiy.Commande;
 import etud.entitiy.Produit;
 import etud.utils.MyListener;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -30,26 +31,31 @@ public class ProduitCom implements Initializable {
     private Label priceLable;
     @FXML
     private ImageView img;
-private Produit produit;
-private MyListener listenner;
+    private Produit produit;
+    private MyListener listenner;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void click(MouseEvent event) {
         listenner.onClickListener(produit);
     }
-    public void setData(Produit p , MyListener l){
-        this.produit =p;
+
+    public void setData(Produit p, MyListener l) {
+        this.produit = p;
         this.listenner = l;
         nameLabel.setText(produit.getNom());
-        priceLable.setText(String.valueOf(produit.getPrix()) );
-       // Image image = new Image(getClass().getResourceAsStream("E:\\Workspace_Dev\\java\\SportTechJava\\activshop_panier_logo.png"));
+        priceLable.setText(String.valueOf(produit.getPrix()));
+        final String imageURI = new File("C:/Users/hp/Desktop/amirtawtaw/public/images/"+produit.getImage()).toURI().toString();
+        System.out.println(imageURI);
+        final Image image = new Image(imageURI);
+        img.setImage(image);
     }
-    
+
 }

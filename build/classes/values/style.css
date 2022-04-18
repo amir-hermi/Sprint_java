@@ -53,3 +53,15 @@
     -fx-background-color: #FFFFFF;
         -fx-background-radius: 30;
 }
+#fancytext {
+    
+}
+.linear-grad-to-bottom{
+    -fx-background-color: linear-gradient(to bottom, #003366, #000d1a);
+}
+
+.menu:hover{
+    -fx-fill: #0052cc;
+    -fx-scale-y: 1.1;
+    -fx-font-size : 23;
+}

@@ -41,6 +41,7 @@ public class PanierService {
                  p.setPrix(Float.valueOf(prod.getString("prix")) );
                  p.setTaille(prod.getString("taille"));
                  p.setQantite(prod.getInt("quantite"));
+                 p.setImage(prod.getString("image"));
                  produits.add(p);
              } 
                 Panier panier = new Panier();

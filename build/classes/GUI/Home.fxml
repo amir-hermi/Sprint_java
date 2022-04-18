@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -96,7 +97,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </ImageView>
-                        <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                        <HBox fx:id="qteLayout" alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
                            <children>
                               <Label prefHeight="41.0" prefWidth="204.0" text="Qte" textFill="WHITE">
                                  <font>
@@ -123,7 +124,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                        <HBox fx:id="orLayout" alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                            <VBox.margin>
                               <Insets bottom="20.0" top="20.0" />
                            </VBox.margin>
@@ -139,7 +140,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
                            <children>
-                              <Label prefHeight="53.0" prefWidth="167.0" text="Taille" textFill="WHITE">
+                              <Label fx:id="tailleText" prefHeight="53.0" prefWidth="167.0" text="Taille" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria" size="24.0" />
                                  </font>
@@ -163,16 +164,16 @@
                   </VBox>
                   <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox fx:id="commandeLayout" layoutY="2.0" prefHeight="95.0" prefWidth="438.0">
+                        <VBox fx:id="PanierLayout" layoutY="2.0" prefHeight="95.0" prefWidth="438.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="438.0">
                                  <children>
-                                    <Text fill="#bf7802" strokeType="OUTSIDE" strokeWidth="0.0" text="Montant Totale :">
+                                    <Text fill="#803e15" strokeType="OUTSIDE" strokeWidth="0.0" text="Montant Totale :">
                                        <HBox.margin>
-                                          <Insets left="30.0" />
+                                          <Insets left="30.0" top="10.0" />
                                        </HBox.margin>
                                        <font>
-                                          <Font name="System Bold Italic" size="18.0" />
+                                          <Font name="System Bold Italic" size="25.0" />
                                        </font>
                                     </Text>
                                     <Text fx:id="montantLabel" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="00.0">
@@ -180,16 +181,16 @@
                                           <Font name="Bookman Old Style Bold" size="18.0" />
                                        </font>
                                        <HBox.margin>
-                                          <Insets left="20.0" />
+                                          <Insets left="20.0" top="15.0" />
                                        </HBox.margin>
                                     </Text>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="416.0">
                                  <children>
-                                    <Text fill="#bf7802" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse">
                                        <font>
-                                          <Font name="System Bold Italic" size="18.0" />
+                                          <Font name="System Bold Italic" size="20.0" />
                                        </font>
                                        <HBox.margin>
                                           <Insets left="30.0" />
@@ -223,19 +224,27 @@
                      <children>
                         <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label layoutX="196.0" layoutY="5.0" onMouseClicked="#showReclamation" prefHeight="62.0" prefWidth="100.0" text="Reclamation" textFill="#ff6200">
-                                 <font>
-                                    <Font name="Cambria" size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="450.0" layoutY="2.0" onMouseClicked="#showAccount" prefHeight="62.0" prefWidth="100.0" text="My Account" textFill="#ff6200">
-                                 <font>
-                                    <Font name="Cambria" size="18.0" />
-                                 </font>
-                              </Label>
-                              <Button layoutX="339.0" layoutY="17.0" mnemonicParsing="false" onAction="#showCommande" text="Commande" />
+                              <HBox alignment="CENTER_LEFT" layoutY="-3.0" prefHeight="71.0" prefWidth="786.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#showCommande" prefHeight="31.0" prefWidth="160.0" styleClass="search-button" stylesheets="@../values/style.css" text="Commande">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#showPanier" prefHeight="31.0" prefWidth="160.0" styleClass="search-button" stylesheets="@../values/style.css" text="Panier">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#showProduits" prefHeight="31.0" prefWidth="160.0" styleClass="search-button" stylesheets="@../values/style.css" text="Produits">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
                            </children></Pane>
-                        <ImageView fitHeight="50.0" fitWidth="55.0" pickOnBounds="true" smooth="false">
+                        <ImageView fx:id="panier" fitHeight="50.0" fitWidth="55.0" pickOnBounds="true" smooth="false">
                            <image>
                               <Image url="@../../activshop_panier_logo.png" />
                            </image>
@@ -300,12 +309,15 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="626.0" prefWidth="905.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ScrollPane fx:id="scroll" prefHeight="631.0" prefWidth="860.0" styleClass="transparent" stylesheets="@../values/style.css">
+                        <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="676.0" prefWidth="1500.0" styleClass="transparent" stylesheets="@../values/style.css">
                            <content>
                               <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" />
                                  </rowConstraints>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
                               </GridPane>
                            </content>
                            <HBox.margin>
