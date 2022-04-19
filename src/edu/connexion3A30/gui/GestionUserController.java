@@ -11,6 +11,8 @@ import edu.connexion3A30.services.PersonneCRUD;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -95,10 +97,9 @@ public class GestionUserController implements Initializable {
         // TODO
         ss.add("Par nom");
         ss.add("Par id");
-    
-       
-            refreshlist();
-            addEtatColumn();
+     
+        addEtatColumn();
+        refreshlist();
     }    
     
        private void addEtatColumn() {
@@ -107,18 +108,26 @@ public class GestionUserController implements Initializable {
         Callback<TableColumn<Utilisateur, Void>, TableCell<Utilisateur, Void>> cellFactory = new Callback<TableColumn<Utilisateur, Void>, TableCell<Utilisateur, Void>>() {
             
             public TableCell<Utilisateur, Void> call(final TableColumn<Utilisateur, Void> param) {
+                
+                
                 final TableCell<Utilisateur, Void> cell = new TableCell<Utilisateur, Void>() {
                     ComboBox combEtat = new ComboBox();
                   
                     {
                         combEtat.getItems().add("Debloquer");
                         combEtat.getItems().add("Bloquer");
-                        
-                        combEtat.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+                          PersonneCRUD pcd = new PersonneCRUD();
+                       for(Utilisateur u : pcd.afficher()){
+                         combEtat.getSelectionModel().selectedItemProperty().addListener((ObservableValue options, Object oldValue, Object newValue) -> {
+                             //combEtat.getSelectionModel().setSelectedItem("b");
+                             
+                             
                             Utilisateur data = getTableView().getItems().get(getIndex());
                             data.setEtat((String) newValue);
                           personneCRUD.UpdatePersonne(data);
                         });
+                       }
+                      
                     }
                     
                     @Override

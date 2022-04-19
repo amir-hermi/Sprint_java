@@ -19,7 +19,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="658.0" prefWidth="1073.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.connexion3A30.gui.GestionUserController">
    <children>
-      <TableView fx:id="tableviewuser" layoutX="310.0" layoutY="58.0" onMouseClicked="#fillforum" prefHeight="494.0" prefWidth="751.0">
+      <TableView fx:id="tableviewuser" layoutX="32.0" layoutY="58.0" onMouseClicked="#fillforum" prefHeight="494.0" prefWidth="1029.0">
         <columns>
          <TableColumn fx:id="username_col" prefWidth="75.0" text="Username" />
           <TableColumn fx:id="last_name" prefWidth="75.0" text="Prenom" />
@@ -33,17 +33,9 @@
       
         </columns>
       </TableView>
-     <TextField fx:id="usernametf" layoutX="64.0" layoutY="218.0" promptText="Username" />
-      <TextField fx:id="lastname" layoutX="64.0" layoutY="97.0" promptText="Prenom" />
-      <TextField fx:id="emailtf" layoutX="64.0" layoutY="158.0" promptText="Email" />
-      
-    
-      <PasswordField fx:id="passwordpf" layoutX="64.0" layoutY="280.0" promptText="Password" />
-      <TextField fx:id="numerotf" layoutX="64.0" layoutY="409.0" promptText="Numero" />
-      <ComboBox fx:id="comborole" layoutX="64.0" layoutY="530.0" prefWidth="150.0" promptText="Role" />
-      <TextField fx:id="recherchetf" layoutX="390.0" layoutY="22.0" prefHeight="25.0" prefWidth="177.0" promptText="Recherche" />
+      <TextField fx:id="recherchetf" layoutX="38.0" layoutY="22.0" prefHeight="31.0" prefWidth="335.0" promptText="Recherche" />
       <ComboBox fx:id="combotri" layoutX="855.0" layoutY="22.0" prefWidth="150.0" promptText="Tri" />
-      <Button layoutX="97.0" layoutY="588.0" mnemonicParsing="false" onAction="#ajouterUser" text="Ajouter">
+      <Button layoutX="137.0" layoutY="588.0" mnemonicParsing="false" onAction="#ajouterUser" text="Ajouter">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -53,7 +45,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <DatePicker fx:id="dpdate" layoutX="52.0" layoutY="474.0" promptText="Date de naissance" />
       <Button layoutX="546.0" layoutY="588.0" mnemonicParsing="false" onAction="#supprimerUser" text="Supprimer">
          <font>
             <Font name="System Bold" size="18.0" />

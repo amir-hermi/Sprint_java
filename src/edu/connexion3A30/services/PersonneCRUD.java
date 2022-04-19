@@ -240,7 +240,7 @@ int id = 0 ;
             ps.setString(5, mdp + u.getPassword());
             
             if (u.getRole()=="ROLE_ADMIN") {
-                ps.setString(6, "admin");
+                ps.setString(6, "'ROLE_USER'");
               
             } 
             ps.setString(7,"Debloquer");
