@@ -30,17 +30,7 @@ public class Myconnection {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-    }
-
-    /*
-    public static Myconnection getInstance() {
-        if(instance == null){
-            instance = new Myconnection();
-        }
-        return instance;
-    }
-    */
-    
+    }   
     public Connection getConn() {
         return conn;
     }

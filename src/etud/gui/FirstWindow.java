@@ -28,7 +28,7 @@ public class FirstWindow extends Application {
     public void start(Stage primaryStage) {
         
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("AjoutSousCategorie.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("detailsProduit.fxml"));
             Scene scene = new Scene(root);
             
             primaryStage.setTitle("Hello");
@@ -36,7 +36,7 @@ public class FirstWindow extends Application {
             primaryStage.show();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());     
-        }
+        } 
     }
 
     /**

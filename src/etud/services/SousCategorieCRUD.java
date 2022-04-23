@@ -29,7 +29,6 @@ public class SousCategorieCRUD {
 
             String query = " insert into sous_categorie (categorie_id,libelle)"
                     + " values (?,?)";
-            // drop matekhdemch fl prepared , prepred statment drequette dynamique
             Myconnection conn = new Myconnection();
             conn.connect();
 
@@ -38,7 +37,7 @@ public class SousCategorieCRUD {
             preparedStmt.setString(2, sc.getLibelle());
             preparedStmt.execute();
 
-            // System.out.println("guide added " + preparedStmt.executeUpdate(query));
+            
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -47,8 +46,8 @@ public class SousCategorieCRUD {
     
 }
     
-    public List<SousCategorie> AfficheSousCategorie() {
-        List<SousCategorie> myList = new ArrayList<>();
+    public ObservableList<SousCategorie> AfficheSousCategorie() {
+        ObservableList<SousCategorie> myList = FXCollections.observableArrayList();
         String query = "SELECT * FROM sous_categorie";
         Statement st;
         Myconnection conn = new Myconnection();
@@ -60,10 +59,10 @@ public class SousCategorieCRUD {
             while (rs.next()) {
                 SousCategorie sc = new SousCategorie();
                 sc.setId(rs.getInt(1));
+                sc.setCategorie_id((rs.getInt(2)) );
                 sc.setLibelle(rs.getString("Libelle"));
                 myList.add(sc);
-                //System.out.println(g.getName() );
-            }
+             }
         } catch (SQLException ex) {
         }
         return myList;
@@ -78,7 +77,6 @@ public class SousCategorieCRUD {
         try {
 
             String query = " update sous_categorie set libelle = ? where id = ?; " ;
-            // drop matekhdemch fl prepared , prepred statment drequette dynamique
              Myconnection conn = new Myconnection();
             conn.connect();
 
@@ -87,7 +85,6 @@ public class SousCategorieCRUD {
              preparedStmt.setInt(2, sc.getId());
             preparedStmt.execute();
             System.out.println("Souscategorie updated ");
-            // System.out.println("guide added " + preparedStmt.executeUpdate(query));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -101,7 +98,6 @@ public class SousCategorieCRUD {
         try {
 
             String query = " delete from sous_categorie where id = ? ; " ;
-            // drop matekhdemch fl prepared , prepred statment drequette dynamique
             Myconnection conn = new Myconnection();
             conn.connect();
 
@@ -110,7 +106,6 @@ public class SousCategorieCRUD {
             preparedStmt.setInt(1, sc.getId());
             preparedStmt.execute();
             System.out.println("SousCategorie deleted ");
-            // System.out.println("guide added " + preparedStmt.executeUpdate(query));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

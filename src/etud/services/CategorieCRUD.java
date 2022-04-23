@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -26,7 +28,7 @@ public class CategorieCRUD {
 
             String query = " insert into Categorie (libelle)"
                     + " values (?)";
-            // drop matekhdemch fl prepared , prepred statment drequette dynamique
+            
             Myconnection conn = new Myconnection();
             conn.connect();
 
@@ -34,7 +36,7 @@ public class CategorieCRUD {
             preparedStmt.setString(1, c.getLibelle());
             preparedStmt.execute();
 
-            // System.out.println("guide added " + preparedStmt.executeUpdate(query));
+            System.out.println("categorie added ");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -43,8 +45,9 @@ public class CategorieCRUD {
     
 }
     
-    public List<Categorie> AfficheCategorie() {
-        List<Categorie> myList = new ArrayList<>();
+    public ObservableList<Categorie> AfficheCategorie() {
+        ObservableList<Categorie> myList = FXCollections.observableArrayList();
+        
         String query = "SELECT * FROM categorie";
         Statement st;
         Myconnection conn = new Myconnection();
@@ -58,44 +61,39 @@ public class CategorieCRUD {
                 c.setId(rs.getInt(1));
                 c.setLibelle(rs.getString("Libelle"));
                 myList.add(c);
-                //System.out.println(g.getName() );
+                
             }
         } catch (SQLException ex) {
         }
         return myList;
     }
-    
-    
-    
+
     
     public void UpdateCategorie(Categorie c) {
         try {
 
             String query = " update Categorie set libelle = ? where id = ?; " ;
-            // drop matekhdemch fl prepared , prepred statment drequette dynamique
+            
             Myconnection conn = new Myconnection();
             conn.connect();
-
             PreparedStatement preparedStmt = conn.getConn().prepareStatement(query);
             preparedStmt.setString(1, c.getLibelle());
             preparedStmt.setInt(2, c.getId());
             preparedStmt.execute();
-            System.out.println("categorie updated ");
-            // System.out.println("guide added " + preparedStmt.executeUpdate(query));
-        } catch (SQLException ex) {
+            System.out.println("categorie updated ");   
+        } 
+        catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
     }
     
     
-    
-    
     public void DeleteCategorie(Categorie c) {
         try {
 
             String query = " delete from Categorie where id = ? ; " ;
-            // drop matekhdemch fl prepared , prepred statment drequette dynamique
+            
              Myconnection conn = new Myconnection();
             conn.connect();
             PreparedStatement preparedStmt = conn.getConn().prepareStatement(query);
@@ -103,7 +101,6 @@ public class CategorieCRUD {
             preparedStmt.setInt(1, c.getId());
             preparedStmt.execute();
             System.out.println("Categorie deleted ");
-            // System.out.println("guide added " + preparedStmt.executeUpdate(query));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

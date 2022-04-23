@@ -29,7 +29,6 @@ public class ProduitCRUD {
 
             String query = " INSERT INTO produit (prix, image, quantite, taille, nom, marque_id ,sous_categire_id,description)"
                     + " values (?, ?, ?, ? ,? , ? , ? , ?)";
-            // drop matekhdemch fl prepared , prepred statment drequette dynamique
             Myconnection conn = new Myconnection();
             conn.connect();
 
@@ -45,15 +44,15 @@ public class ProduitCRUD {
 
             preparedStmt.execute();
 
-            // System.out.println("guide added " + preparedStmt.executeUpdate(query));
+            
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
     }
     
-    public List<Produit> AfficheProduit() {
-        List<Produit> myList = new ArrayList<>();
+    public ObservableList<Produit> AfficheProduit() {
+        ObservableList<Produit> myList = FXCollections.observableArrayList();
         String query = "SELECT * FROM Produit";
         Statement st;
         Myconnection conn = new Myconnection();
@@ -76,7 +75,7 @@ public class ProduitCRUD {
                 p.setMarque(rs.getInt("marque_id"));
                 p.setSousCategire(rs.getInt("sous_categire_id"));
                 p.setdescription(rs.getString("description"));
-                System.out.println(p);
+                System.out.println(p.getdescription());
                 myList.add(p);
                 
             }
@@ -91,7 +90,6 @@ public class ProduitCRUD {
         try {
 
             String query = " update produit set prix = ? , image = ? , quantite = ? , taille = ?, nom = ? , marque_id = ? , sous_categire_id = ? , description = ? where id = ? ; " ;
-            // drop matekhdemch fl prepared , prepred statment drequette dynamique
             Myconnection conn = new Myconnection();
             conn.connect();
 
@@ -108,7 +106,7 @@ public class ProduitCRUD {
             preparedStmt.setInt(9, p.getId());
             preparedStmt.execute();
             System.out.println("produit updated ");
-            // System.out.println("guide added " + preparedStmt.executeUpdate(query));
+         
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -119,7 +117,7 @@ public class ProduitCRUD {
         try {
 
             String query = " delete from produit where id = ? ; " ;
-            // drop matekhdemch fl prepared , prepred statment drequette dynamique
+
             Myconnection conn = new Myconnection();
             conn.connect();
 
@@ -128,7 +126,6 @@ public class ProduitCRUD {
             preparedStmt.setInt(1, p.getId());
             preparedStmt.execute();
             System.out.println("produit deleted ");
-            // System.out.println("guide added " + preparedStmt.executeUpdate(query));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }    

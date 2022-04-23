@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="etud.gui.DetailsMarqueController">
+   <children>
+      <Label layoutX="45.0" layoutY="120.0" text="libelle">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="mlibelle" layoutX="117.0" layoutY="115.0" prefHeight="31.0" prefWidth="283.0" style="-fx-background-color: linear-gradient(to right top,#0066ff,#66ffff);" />
+      <TableView fx:id="tvmarque" layoutX="477.0" layoutY="44.0" prefHeight="461.0" prefWidth="730.0">
+         <columns>
+            <TableColumn fx:id="tvlibelle" prefWidth="75.0" text="libelle" />
+         </columns>
+      </TableView>
+      <TextField fx:id="tfid" editable="false" layoutX="118.0" layoutY="63.0" prefHeight="31.0" prefWidth="283.0" />
+      <Label layoutX="58.0" layoutY="66.0" text="Id">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="deletemarque" layoutX="325.0" layoutY="231.0" mnemonicParsing="false" onAction="#deletemarque" prefHeight="44.0" prefWidth="138.0" style="-fx-background-color: #734df3; -fx-background-radius: 90;" text="Delete">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="updatemarque" layoutX="165.0" layoutY="231.0" mnemonicParsing="false" onAction="#updatemarque" prefHeight="44.0" prefWidth="138.0" style="-fx-background-color: #734df3; -fx-background-radius: 90;" text="Update">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="AjouterMarque" layoutX="20.0" layoutY="231.0" mnemonicParsing="false" onAction="#AjoutMarque" prefHeight="44.0" prefWidth="131.0" style="-fx-background-color: #734df3; -fx-background-radius: 90;" text="Ajouter">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="etud.gui.DetailsCategorieController">
+   <children>
+      <Button fx:id="AjouterCategorie" layoutX="10.0" layoutY="221.0" mnemonicParsing="false" onAction="#AjoutCategorie" prefHeight="44.0" prefWidth="131.0" style="-fx-background-color: #734df3; -fx-background-radius: 90;" text="Ajouter">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="updatecategorie" layoutX="155.0" layoutY="221.0" mnemonicParsing="false" onAction="#updatecategorie" prefHeight="44.0" prefWidth="138.0" style="-fx-background-color: #734df3; -fx-background-radius: 90;" text="Update">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="deletecategorie" layoutX="315.0" layoutY="221.0" mnemonicParsing="false" onAction="#deletecategorie" prefHeight="44.0" prefWidth="138.0" style="-fx-background-color: #734df3; -fx-background-radius: 90;" text="Delete">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Button>
+      <Label layoutX="48.0" layoutY="56.0" text="Id">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfid" editable="false" layoutX="108.0" layoutY="53.0" prefHeight="31.0" prefWidth="283.0" />
+      <TableView fx:id="tvcategorie" layoutX="467.0" layoutY="34.0" prefHeight="461.0" prefWidth="730.0">
+         <columns>
+            <TableColumn fx:id="tvlibelle" prefWidth="75.0" text="libelle" />
+         </columns>
+      </TableView>
+      <TextField fx:id="clibelle" layoutX="107.0" layoutY="105.0" prefHeight="31.0" prefWidth="283.0" style="-fx-background-color: linear-gradient(to right top,#0066ff,#66ffff);" />
+      <Label layoutX="35.0" layoutY="110.0" text="libelle">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
