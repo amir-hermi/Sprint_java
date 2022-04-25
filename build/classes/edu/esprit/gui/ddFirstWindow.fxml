@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" onMouseClicked="#handelMouseAction" prefHeight="500.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.gui.AddFirstWindowController">
+   <children>
+      <VBox fx:id="tfvBox" layoutX="14.0" layoutY="51.0" prefHeight="237.0" prefWidth="135.0" spacing="15.0">
+         <children>
+            <Label fx:id="tfnom_fournisseur" text="nom_fournisseur">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tfadresse_fournisseur" text="adresse_fournisseur">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tfMDP_fournisseur" text="MDP_fournisseur">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tflastname" text="lastname">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tftel" text="tel">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label text="id" />
+            <Label prefHeight="17.0" prefWidth="26.0" />
+         </children>
+      </VBox>
+      <VBox fx:id="tfv" layoutX="149.0" layoutY="51.0" prefHeight="200.0" prefWidth="130.0" spacing="10.0">
+         <children>
+            <TextField fx:id="cnom_fournisseur" />
+            <TextField fx:id="cadresse_fournisseur" />
+            <TextField fx:id="cMDP_fournisseur" />
+            <TextField fx:id="clastname" />
+            <TextField fx:id="ctel" />
+            <TextField fx:id="cid" editable="false" />
+         </children>
+      </VBox>
+      <TableView fx:id="tvFournisseurs" layoutX="282.0" layoutY="51.0" prefHeight="369.0" prefWidth="501.0">
+        <columns>
+          <TableColumn fx:id="colid" prefWidth="39.0" text="id" />
+          <TableColumn fx:id="colnom_fournisseur" prefWidth="101.0" text="nom_fournisseur" />
+            <TableColumn fx:id="coladresse_fournisseur" prefWidth="123.0" text="adresse_fournisseur" />
+            <TableColumn fx:id="colMDP_fournisseur" prefWidth="104.0" text="MDP_fournisseur" />
+            <TableColumn fx:id="collastname" text="lastname" />
+            <TableColumn fx:id="coltel" prefWidth="53.0" text="tel" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnInsert" layoutX="6.0" layoutY="308.0" mnemonicParsing="false" onAction="#Add" prefHeight="25.0" prefWidth="82.0" text="Insert" />
+      <Button fx:id="btnUpdate" layoutX="91.0" layoutY="308.0" mnemonicParsing="false" onAction="#Update" prefHeight="25.0" prefWidth="88.0" text="Update" />
+      <Button fx:id="btnDelete" layoutX="184.0" layoutY="308.0" mnemonicParsing="false" onAction="#Delete" prefHeight="25.0" prefWidth="96.0" text="Delete" />
+   </children>
+</AnchorPane>

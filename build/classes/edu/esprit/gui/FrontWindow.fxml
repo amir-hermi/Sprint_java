@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.gui.FrontWindowController">
+   <children>
+      <AnchorPane id="AnchorPane" onMouseClicked="#handelMouseAction" prefHeight="400.0" prefWidth="764.0">
+         <children>
+            <Label layoutX="7.0" layoutY="6.0" text="Commande Stock">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <VBox layoutX="14.0" layoutY="46.0" prefHeight="200.0" prefWidth="62.0" spacing="15.0" />
+            <VBox layoutX="76.0" layoutY="46.0" prefHeight="200.0" prefWidth="148.0" spacing="7.0" />
+            <TableView fx:id="tv" layoutX="24.0" layoutY="46.0" prefHeight="289.0" prefWidth="726.0">
+               <columns>
+                  <TableColumn fx:id="colid" prefWidth="51.0" text="id" />
+                  <TableColumn fx:id="coldate" prefWidth="103.0" text="date" />
+                  <TableColumn fx:id="colquantite" prefWidth="82.0" text="quantite" />
+                  <TableColumn fx:id="colfournisseur" prefWidth="100.0" text="fournisseur" />
+                  <TableColumn fx:id="colproduit" prefWidth="85.0" text="produit" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

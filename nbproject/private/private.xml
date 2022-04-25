@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/PiDevJava/src/edu/pidev/gui/TableMissionController.java</file>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/PiDevJava/src/edu/pidev/entites/Mission.java</file>
+            <file>file:/C:/Users/HP/Desktop/playWithJava/src/edu/esprit/gui/FrontCommandestock.java</file>
+            <file>file:/C:/Users/HP/Desktop/playWithJava/src/edu/esprit/gui/AddFirstWindow.java</file>
+            <file>file:/C:/Users/HP/Desktop/playWithJava/src/edu/esprit/gui/AddFirstWindowController.java</file>
+            <file>file:/C:/Users/HP/Desktop/playWithJava/src/edu/esprit/gui/FrontWindowController.java</file>
+            <file>file:/C:/Users/HP/Desktop/playWithJava/src/edu/esprit/services/CommandestockCRUD.java</file>
+            <file>file:/C:/Users/HP/Desktop/playWithJava/src/edu/esprit/gui/SecondWindowController.java</file>
         </group>
     </open-files>
 </project-private>
