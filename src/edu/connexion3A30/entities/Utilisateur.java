@@ -21,6 +21,7 @@ public class Utilisateur implements Comparable<Utilisateur>{
      private String tel ;
      private String etat ; 
      private String adresse ; 
+     private String Activation_token ; 
      private Date date_naissance;
      
      
@@ -28,7 +29,30 @@ public class Utilisateur implements Comparable<Utilisateur>{
     public Utilisateur() {
     }
 
-    public Utilisateur(int id, String username, String lastname, String role, String email, String password, String tel, String etat, String adresse, Date date_naissance) {
+    public Utilisateur(String username, String lastname, String role, String email, String password, String tel, String etat, String adresse, String Activation_token, Date date_naissance) {
+        this.username = username;
+        this.lastname = lastname;
+        this.role = role;
+        this.email = email;
+        this.password = password;
+        this.tel = tel;
+        this.etat = etat;
+        this.adresse = adresse;
+        this.Activation_token = Activation_token;
+        this.date_naissance = date_naissance;
+    }
+    
+     
+             
+    public Utilisateur(String username, String lastname, String email, String password, String tel, String adresse) {
+        this.username = username;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.tel = tel;
+        this.adresse = adresse;
+    }
+public Utilisateur(int id, String username, String lastname, String role, String email, String password, String tel, String etat, String adresse, Date date_naissance) {
         this.id = id;
         this.username = username;
         this.lastname = lastname;
@@ -158,6 +182,16 @@ public class Utilisateur implements Comparable<Utilisateur>{
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
+
+    public String getActivation_token() {
+        return Activation_token;
+    }
+
+    public void setActivation_token(String Activation_token) {
+        this.Activation_token = Activation_token;
+    }
+    
+    
     
     
     

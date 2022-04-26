@@ -24,6 +24,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -70,6 +71,7 @@ public class PersonneCRUD {
         
         
     }
+    /*
     
     
       public boolean checklogin(String username,String password){
@@ -84,6 +86,7 @@ public class PersonneCRUD {
         return false;
         
      }
+    */
     
      public Utilisateur findByUsername(String username){
          Utilisateur u=new Utilisateur();
@@ -228,7 +231,7 @@ public class PersonneCRUD {
     
     public void ajouter(Utilisateur u) {
 int id = 0 ;
-        String req = "INSERT INTO `utilisateur`(`username`, `lastname`,  `tel`,`email`, `password`, `roles` , `etat`, `adresse` ,`date_naissance`)VALUES (?,?,?,?,?,?,?,?,?) ";
+        String req = "INSERT INTO `utilisateur`(`username`, `lastname`,  `tel`,`email`, `password`, `roles` , `etat`, `adresse`, `activation_token` ,`date_naissance`)VALUES (?,?,?,?,?,?,?,?,?,?) ";
         try {
             String mdp = Hash();
 
@@ -239,14 +242,14 @@ int id = 0 ;
             ps.setString(4, u.getEmail());
             ps.setString(5, mdp + u.getPassword());
             
-            if (u.getRole()=="ROLE_ADMIN") {
-                ps.setString(6, "'ROLE_USER'");
+          
+                ps.setString(6, "[\"ROLE_USER\"]");
               
-            } 
+           
             ps.setString(7,"Debloquer");
             ps.setString(8,u.getAdresse());
-            
-            ps.setDate(9, (Date)u.getDate_naissance());
+            ps.setString(9,u.getActivation_token());
+            ps.setDate(10, (Date)u.getDate_naissance());
             
             ps.executeUpdate();
             System.out.println("user added !");
@@ -299,6 +302,80 @@ int id = 0 ;
         
     }
     
+       public void UpdatePersonne1(Utilisateur p) {
+        try {
+            System.out.println(p);
+            String requette ="update utilisateur set username = ? , lastname = ?  , email = ? , password = ? , adresse = ? , tel = ?  where id = ?";  //prepared statement asra3 et securise mn statment khter mara bark tet3ada b 4 phase w lbe3i phase execution bark
+    //drop matekhdemch fl prepared , prepred statment drequette dynamique
+           PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requette);
+           
+           pst.setString(1, p.getUsername());
+           pst.setString(2, p.getLastname());
+         
+           pst.setString(3, p.getEmail());
+           pst.setString(4, p.getPassword());
+ 
+          
+           pst.setString(5, p.getTel());
+           pst.setString(6, p.getAdresse());
+           pst.setInt(7, p.getId());
+            //pst.executeUpdate(requette); //select nestaamlou executequery
+            pst.execute();
+           // System.out.println("personne2 ajout" +pst.executeUpdate(requette) );
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+    }
+    
+    //
+    public void modifierUtlisateur(Utilisateur p){
+        String requete = "UPDATE utilisateur SET username`=?,lastname`=?,`email`=?,`date_naissance`=?, adresse`=? , tel`=?, roles`=?, password`=? WHERE id=" ;
+        try {
+            PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
+            pst.setString(1, p.getUsername());
+           pst.setString(2, p.getLastname());
+           pst.setString(3, p.getRole());
+           pst.setString(4, p.getEmail());
+           pst.setString(5, p.getPassword());
+           
+          
+           pst.setString(6, p.getTel());
+           pst.setInt(7, p.getId());
+            pst.executeUpdate();
+            int rowsUpdated = pst.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("La modification de l'utilisateur : " + p.getUsername()+ " a été éffectuée avec succès ");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
+    
+       public boolean modifier(Utilisateur p) {
+        String req = "update utilisateur set username = ? , lastname = ? , roles = ? , email = ? , password = ? , etat = ? , tel = ?  where id = ?"; 
+        try {
+            PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(req);
+            pst.setString(1, p.getUsername());
+           pst.setString(2, p.getLastname());
+           pst.setString(3, "Role");
+           pst.setString(4, p.getEmail());
+           pst.setString(5, p.getPassword());
+           pst.setString(6, p.getEtat());
+          
+           pst.setString(7, p.getTel());
+           pst.setInt(8, p.getId());
+            pst.executeUpdate();
+            System.out.println("user Modifyed !");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+    
       public boolean verifierEmailBd(String email) { //Controle De Saisie si mail existe
         PreparedStatement stmt = null;
         ResultSet rst = null;
@@ -308,11 +385,13 @@ int id = 0 ;
             stmt.setString(1, email);
             rst = stmt.executeQuery();
             if (rst.next()) {
+                System.out.println("c bon");
                 return true;
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+          System.out.println("non");
         return false;
     }
       
@@ -387,7 +466,7 @@ int id = 0 ;
         PreparedStatement stmt;
         try {
 
-            String sql = "UPDATE utilisateur SET password=? WHERE email=?";
+            String sql = "UPDATE utilisateur SET password=?     WHERE email=?";
             stmt = MyConnection.getInstance().getCnx().prepareStatement(sql);
             stmt.setString(1, password);
             stmt.setString(2, mail);
@@ -399,12 +478,55 @@ int id = 0 ;
 
     }
      
+    public void modifier(long id_modif, Utilisateur t) {
+        try {
+            PreparedStatement st;
+            st=MyConnection.getInstance().getCnx().prepareStatement("UPDATE `Utilisateur` SET `adresse`=?,`date_naissance`=?,"
+                    + "`email`=?,`tel`=?,"
+                    + "`password`=?,`lastname`=?,"
+                    + "`roles`=?,`username`=? WHERE id=?");
+            st.setString(1, t.getAdresse());
+            st.setDate(2,new java.sql.Date(t.getDate_naissance().getTime()));
+            st.setString(3,t.getEmail());
+            
+            st.setString(4, t.getTel());
+            st.setString(5,( t.getPassword()));
+            st.setString(6, t.getLastname());
+            
+            st.setString(8, t.getUsername());
+            st.setLong(9, id_modif);
+            if (st.executeUpdate()==1){
+            System.out.println("user modifier avec success");
+            }else {
+                System.out.println("user n'existe pas");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonneCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+     
+       public void supprimer(long id) {
+        try {
+            Statement st=MyConnection.getInstance().getCnx().createStatement();
+            String query="delete from user where id="+id;
+            if(st.executeUpdate(query)==1){
+            System.out.println("suppression avec success");
+            }else {
+                System.out.println("user n'existe pas");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonneCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
     
-      public void Delete(Utilisateur p) {
+      public void Delete( int id) {
         try {
             
-                int id = 0 ;
+               
+                Utilisateur p = new Utilisateur();
             String query_rechreche = " SELECT *  from utilisateur where username = ? ; ";
             PreparedStatement pst_recherche  = MyConnection.getInstance().getCnx().prepareStatement(query_rechreche);
             pst_recherche.setString(1, p.getUsername() );
@@ -648,8 +770,10 @@ int id = 0 ;
                 u.setTel(rs.getString("tel"));
                 u.setPassword(rs.getString("password"));
                 u.setLastname(rs.getString("lastname"));
-            
+                u.setAdresse(rs.getString("adresse"));
+                u.setDate_naissance(rs.getDate("date_naissance"));
                 u.setRole(rs.getString("roles"));
+               u.setEtat(rs.getString("etat"));
                 lu.add(u);
             }
         } catch (SQLException ex) {
@@ -657,6 +781,27 @@ int id = 0 ;
         }
         return lu;
     }
+    // age
+    
+    public int calculateAge(Date birthDate) {
+        LocalDate currentDate = LocalDate.now();
+        int age = currentDate.getYear() - birthDate.getYear();
+        
+        int month1 = currentDate.getMonthValue();
+        int month2 = birthDate.getMonth();
+        if (month2 > month1) {
+            age--;
+        } else if (month1 == month2) {
+            int day1 = currentDate.getDayOfMonth();
+            int day2 = birthDate.getDay();
+            if (day2 > day1) {
+                age--;
+            }
+        }
+        return age-1900;
+    }
+    
+    
     } 
   
     

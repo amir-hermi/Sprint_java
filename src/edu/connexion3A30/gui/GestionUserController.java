@@ -11,16 +11,21 @@ import edu.connexion3A30.services.PersonneCRUD;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -33,6 +38,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -44,47 +53,36 @@ public class GestionUserController implements Initializable {
     @FXML
     private TableView<Utilisateur> tableviewuser;
     @FXML
-    private TableColumn<?, ?> email_col;
+    private TableColumn<Utilisateur, String> email_col;
     @FXML
     private TableColumn<Utilisateur, String> username_col;
     @FXML
     private TableColumn<Utilisateur, String> password_col;
     @FXML
-    private TableColumn<?, ?> add_col;
+    private TableColumn<Utilisateur, String> add_col;
     @FXML
     private TableColumn<?, ?> date_col;
     @FXML
-    private TableColumn<?, ?> numero_col;
+    private TableColumn<Utilisateur, String> numero_col;
     @FXML
     private TableColumn<Utilisateur, String> role_col;
     @FXML
-    private TextField emailtf;
-    @FXML
-    private TextField usernametf;
-    @FXML
-    private PasswordField passwordpf;
-    @FXML
-    private TextField numerotf;
-    @FXML
-    private ComboBox<Utilisateur> comborole;
-    @FXML
     private TextField recherchetf;
     @FXML
-    private ComboBox<?> combotri;
-    @FXML
-    private DatePicker dpdate;
+    private ComboBox<String> combotri;
     @FXML
     private Button btntri;
     @FXML
     private Button btnHome;
+     @FXML
+    private TableColumn<Utilisateur, String> last_name;
+    
+       private Stage stage;
+    private Scene scene;
+    private Parent root;
     
       PersonneCRUD us =new PersonneCRUD();
-    @FXML
-    private TableColumn<Utilisateur, String> last_name;
-    @FXML
-    private TableColumn<Utilisateur, String> etat_col;
-    @FXML
-    private TextField lastname;
+   
        ObservableList<Utilisateur> data=FXCollections.observableArrayList();
     
     ObservableList<String> ss=FXCollections.observableArrayList();
@@ -97,7 +95,10 @@ public class GestionUserController implements Initializable {
         // TODO
         ss.add("Par nom");
         ss.add("Par id");
-     
+    
+        combotri.setItems(ss);
+        //refreshlist();
+        recherche_avance();
         addEtatColumn();
         refreshlist();
     }    
@@ -120,8 +121,7 @@ public class GestionUserController implements Initializable {
                        for(Utilisateur u : pcd.afficher()){
                          combEtat.getSelectionModel().selectedItemProperty().addListener((ObservableValue options, Object oldValue, Object newValue) -> {
                              //combEtat.getSelectionModel().setSelectedItem("b");
-                             
-                             
+
                             Utilisateur data = getTableView().getItems().get(getIndex());
                             data.setEtat((String) newValue);
                           personneCRUD.UpdatePersonne(data);
@@ -150,6 +150,50 @@ public class GestionUserController implements Initializable {
         
         tableviewuser.getColumns().add(colBtn);
         
+    }                                                                                                       
+       
+       
+       
+    public void recherche_avance(){
+        FilteredList<Utilisateur> filtereddata=new FilteredList<>(data,b->true);
+        recherchetf.textProperty().addListener((observable,oldvalue,newValue) -> {
+            filtereddata.setPredicate(user->{
+                if(newValue==null||newValue.isEmpty()){
+                    return true;
+                }
+                String lowercasefilter=newValue.toLowerCase();
+                if(user.getUsername().toLowerCase().indexOf(lowercasefilter)!=-1){
+                    return true;
+                }
+                else if(user.getLastname().toLowerCase().indexOf(lowercasefilter)!=-1){
+                    return true;
+                }
+                else if(user.getAdresse().toLowerCase().indexOf(lowercasefilter)!=-1){
+                    return true;
+                }
+                else if(user.getEmail().toLowerCase().indexOf(lowercasefilter)!=-1){
+                    return true;
+                }
+                else if(String.valueOf(user.getTel()).indexOf(lowercasefilter)!=-1){
+                    return true;
+                }
+                else if(user.getRole().toString().toLowerCase().indexOf(lowercasefilter)!=-1){
+                    return true;
+                }
+                else if(user.getUsername().toLowerCase().indexOf(lowercasefilter)!=-1){
+                    return true;
+                }
+                else if(user.getDate_naissance().toString().toLowerCase().indexOf(lowercasefilter)!=-1){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+                
+            });
+        });
+        
+        
     }
     
     
@@ -158,12 +202,12 @@ public class GestionUserController implements Initializable {
         data.clear();
         data=FXCollections.observableArrayList(us.afficher());
         username_col.setCellValueFactory(new PropertyValueFactory<>("Username"));
-        last_name.setCellValueFactory(new PropertyValueFactory<>("Prenom"));
+        last_name.setCellValueFactory(new PropertyValueFactory<>("lastname"));
         
         email_col.setCellValueFactory(new PropertyValueFactory<>("Email"));
        
         password_col.setCellValueFactory(new PropertyValueFactory<>("Password"));
-    
+        add_col.setCellValueFactory(new PropertyValueFactory<>("Adresse"));
         
         date_col.setCellValueFactory(new PropertyValueFactory<>("date_naissance"));
         numero_col.setCellValueFactory(new PropertyValueFactory<>("tel"));
@@ -177,14 +221,68 @@ public class GestionUserController implements Initializable {
 
     @FXML
     private void ajouterUser(ActionEvent event) {
+      try {
+            root = FXMLLoader.load(getClass().getResource("jouteUser.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(InscriptionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     private void modifierUser(ActionEvent event) {
+      
+        
+        if (!tableviewuser.getSelectionModel().getSelectedCells().isEmpty()) {
+           Stage ModifStage = new Stage();
+            try {
+                  Stage stage = (Stage) btntri.getScene().getWindow();
+                  
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("modifeUser.fxml"));
+                Parent root = loader.load();
+                ModifeUserController pc = loader.getController();
+                tableviewuser.getSelectionModel().getSelectedItems().stream().forEach(e -> {
+                    pc.setData(e.getId() ,e.getUsername(),e.getEmail(),e.getAdresse(),e.getLastname(),e.getPassword(),e.getTel(),e.getDate_naissance());
+                });
+               
+                 Scene scene = new Scene(root, 400, 400);
+                ModifStage.setScene(scene);
+                ModifStage.setTitle("Modifier");
+                ModifStage.show();
+                stage.close();
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Selectionner une user");
+            alert.show();
+        }
+         
+        
     }
+    
+   
+
 
     @FXML
     private void supprimerUser(ActionEvent event) {
+         /*  String username=tableviewuser.getSelectionModel().getSelectedItem().getUsername();
+        Utilisateur u=us.findByUsername(username);
+        us.Delete(u.getId());
+        TrayNotification tray = new TrayNotification();
+            
+            AnimationType type = AnimationType.POPUP;
+            tray.setAnimationType(type);
+            tray.setTitle("Delete Success");
+            tray.setMessage("User is deleted");
+            tray.setNotificationType(NotificationType.WARNING);
+            tray.showAndDismiss(Duration.millis(1000));
+            refreshlist();
+*/
     }
 
     @FXML

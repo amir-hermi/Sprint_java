@@ -17,6 +17,7 @@ public class Session {
     private static String roles;
     private static int id_Lo;
     private static String etat;
+    private static String activation_token;
 
    
     
@@ -65,6 +66,14 @@ public class Session {
 
     public static void setEmail(String email) {
         Session.email = email;
+    }
+    
+     public static String getActivation_token() {
+        return activation_token;
+    }
+
+    public static void setActivation_token(String activation_token) {
+        Session.activation_token = activation_token;
     }
 
     public static String getRoles() {

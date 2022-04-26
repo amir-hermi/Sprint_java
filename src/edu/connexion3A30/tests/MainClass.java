@@ -33,7 +33,7 @@ public class MainClass {
         Date d = new Date(03,03,1999);
          //Utilisateur p6 = new Utilisateur("dsfds", "sdfds" , "ROLE_ADMIN" , "dsf@gmail.com" ,"chiheb" ,"9393399","ariana e soghra nahej il bacha" ,d);
           //p6.setId(62);
-           Utilisateur p6 = new Utilisateur("momeed", "hbaieb", "ROLE_ADMIN", "meme@gmail.com","hfhfh","829434292", "jjdjjd", "jdjdjd", d) ;
+           Utilisateur p6 = new Utilisateur("ds", "hbaxwcieb", "ROLE_ADMIN", "sd@gmail.com","hfhfh","829434292", "jjdjjd", "jdjdjd","codecode", d) ;
          
          
          //Smsapi.sendSMS("amir hermi");
@@ -45,7 +45,9 @@ public class MainClass {
         
            //pcd.Delete(p6);
            
-        pcd.ajouter(p6);
+       pcd.ajouter(p6);
+        
+       // pcd.verifierEmailBd("bilel.;jnkjjkj@esprit.tn");
        // pcd.ajoutPersonne2(p6);
         
         //pcd.ajoutPersonne2(p6);

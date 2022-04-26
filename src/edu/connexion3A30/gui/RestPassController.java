@@ -152,6 +152,7 @@ public class RestPassController implements Initializable {
         if ( !sU.verifierEmailBd(mail)) {
             sU.alert_Box("Verifier adresse", "Veillez saisir une adresse mail valide");
         } else {
+            
             emailPW = mail;
             sU.sendMail(mail, "Compte créer avec succès", "voici votre code de " + codeVerification + "  ");
             sU.information_Box("Succes", "verifier votre boite mail");
@@ -170,6 +171,7 @@ public class RestPassController implements Initializable {
         visibility(false,false,true);
         }
     }
+    
 public String Hash() throws Exception {
 
         String mdp_user = "";
@@ -208,10 +210,17 @@ public String Hash() throws Exception {
 
     @FXML
     private void back(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("authentification.fxml"));
-        Parent root = loader.load();
-        Stage window = (Stage) resetPW.getScene().getWindow();
-        window.setScene(new Scene(root));
+     try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));///charger les element de fxml
+                            Parent root = loader.load();
+                            Stage stage =new Stage();
+                            Scene scene = new Scene(root);
+                            stage.setTitle("Dashbord User");
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
     }
 
     

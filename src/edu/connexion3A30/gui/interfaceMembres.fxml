@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="rootPane3" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.connexion3A30.gui.InterfaceMembreController">
+   <children>
+      <VBox prefHeight="650.0" prefWidth="998.0" style="-fx-background-color: #6a0aa6;">
+         <children>
+            <Pane fx:id="paneId" maxHeight="560.0" maxWidth="1000.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="56.0" prefWidth="998.0" style="-fx-background-color: #3d3242;">
+               <children>
+                  <Text fill="WHITE" layoutX="380.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="espace Admin SportTech">
+                     <font>
+                        <Font name="Calibri Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="profilbtn" layoutX="26.0" layoutY="15.0" mnemonicParsing="false" onAction="#ActionProfilbtn" style="-fx-background-color: #6a0aa6;" text="Profil" textFill="WHITE" />
+                  <Button fx:id="logoffbtn1" layoutX="930.0" layoutY="16.0" mnemonicParsing="false" onAction="#ActionLogOffbtn" style="-fx-background-color: #6a0aa6;" text="Log off" textFill="WHITE" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

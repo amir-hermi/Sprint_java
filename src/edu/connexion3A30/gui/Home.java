@@ -26,7 +26,7 @@ public class Home extends Application {
     public void start(Stage primaryStage) {
        
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("GestionUser.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
             Scene scene = new Scene(root);
             
             primaryStage.setTitle("Hello World!");

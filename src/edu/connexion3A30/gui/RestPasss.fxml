@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="edu.connexion3A30.gui.RestPassController">
+   <children>
+      <AnchorPane id="AnchorPane" fx:id="rootPane" layoutX="10.0" layoutY="6.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #3d3242;">
+         <children>
+            <Button fx:id="resetPW" layoutX="405.0" layoutY="353.0" mnemonicParsing="false" onAction="#resetPW" prefHeight="56.0" prefWidth="189.0" style="-fx-background-color: #9400d3;" text="Modifier mot de passe" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <TextField fx:id="email" layoutX="164.0" layoutY="179.0" prefHeight="25.0" prefWidth="222.0" promptText="E-mail.." />
+            <Button fx:id="codeConfirmation" layoutX="438.0" layoutY="155.0" mnemonicParsing="false" onAction="#codeConfirmation" prefHeight="47.0" prefWidth="97.0" style="-fx-background-color: #9400d3;" text="Envoyer code" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <TextField fx:id="code" layoutX="164.0" layoutY="226.0" prefHeight="26.0" prefWidth="222.0" promptText="code.." />
+            <Label fx:id="pwLab" layoutX="230.0" layoutY="53.0" prefHeight="21.0" prefWidth="175.0" text="Neauveau mot de passe :" textFill="#f5f5f5">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="verifCode" layoutX="425.0" layoutY="215.0" mnemonicParsing="false" onAction="#verifCode" prefHeight="47.0" prefWidth="97.0" style="-fx-background-color: #9400d3;" text="Verifier" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <PasswordField fx:id="nvPw" layoutX="433.0" layoutY="51.0" prefHeight="25.0" prefWidth="206.0" promptText="Neauveau mot de passe.." />
+            <PasswordField fx:id="cnvPW" layoutX="433.0" layoutY="93.0" prefHeight="25.0" prefWidth="206.0" promptText="Confirmation de mot de passe.." />
+            <Label fx:id="emailLab" layoutX="22.0" layoutY="178.0" prefHeight="21.0" prefWidth="105.0" text="E-mail :" textFill="#f5f5f5">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="codeLab" layoutX="17.0" layoutY="226.0" prefHeight="21.0" prefWidth="175.0" text="Verification code :" textFill="#f5f5f5">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="cpwLab" layoutX="145.0" layoutY="371.0" prefHeight="21.0" prefWidth="222.0" text="Confirmation de mot de passe :" textFill="#f5f5f5">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="back" layoutX="34.0" layoutY="19.0" mnemonicParsing="false" onAction="#back" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #9400d3;" text="Sign In" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

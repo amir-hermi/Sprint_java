@@ -89,12 +89,16 @@ public class LoginController implements Initializable {
              if(Session.getEtat().equals("Bloquer")){
                   JOptionPane.showMessageDialog(null, "Vous etes bloquer");
              }
+            /* if(!Session.getActivation_token().isEmpty()){
+                  JOptionPane.showMessageDialog(null, "vous veillez dabord activer votre compte ");
+             }
+*/
                 
-             if(Session.getRoles().equals("admin") ){
+             if(Session.getRoles().equals("[\"ROLE_ADMIN\"]") ){
                   JOptionPane.showMessageDialog(null, "E-mail and Password is Correct");
             try {
                 System.out.println(Session.getEtat());
-                root = FXMLLoader.load(getClass().getResource("../gui/InterfaceMembre.fxml"));
+                root = FXMLLoader.load(getClass().getResource("../gui/interfaceMembre.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -102,7 +106,7 @@ public class LoginController implements Initializable {
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
-                }else if (Session.getRoles().equals("user")& Session.getEtat().equals("Debloquer")){
+                }else if (Session.getRoles().equals("[\"ROLE_USER\"]")& Session.getEtat().equals("Debloquer")){
                      JOptionPane.showMessageDialog(null, "E-mail and Password is Correct");
             try {
                 System.out.println(Session.getEtat());
@@ -181,7 +185,7 @@ public class LoginController implements Initializable {
     private void switch_signup_membre(ActionEvent event) {
         
         try {
-            root = FXMLLoader.load(getClass().getResource("inscription.fxml"));
+            root = FXMLLoader.load(getClass().getResource("inscriptions.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }

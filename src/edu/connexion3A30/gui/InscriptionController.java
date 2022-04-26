@@ -7,6 +7,7 @@ package edu.connexion3A30.gui;
 
 import edu.connexion3A30.entities.Utilisateur;
 import edu.connexion3A30.services.PersonneCRUD;
+import edu.connexion3A30.util.Mailapi;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,6 +22,9 @@ import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 
 import java.util.ResourceBundle;
+import java.util.UUID;
+
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -33,6 +37,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -50,6 +55,7 @@ import net.glxn.qrgen.image.ImageType;
  * @author bilel
  */
 public class InscriptionController implements Initializable {
+     String emailPW = null;
 
     @FXML
     private Button add_membre_btn;
@@ -81,19 +87,32 @@ public class InscriptionController implements Initializable {
     private DatePicker date_membre;
     @FXML
     private TextArea adresse_membre;
+    @FXML
+    private Label age;
+ 
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        date_membre.valueProperty().addListener((ov, oldValue, newValue) -> {
+           PersonneCRUD pcd = new PersonneCRUD();
+      
+        int a = pcd.calculateAge(Date.valueOf(newValue));
+        age.setText(String.valueOf(a));
+        setAge("votre age est :"+String.valueOf(a)+" Ans");
+        });
+         
+        
     }    
 
     @FXML
     private void action_add_membre(ActionEvent event) {
         
          PersonneCRUD sp = new PersonneCRUD();
+           String mail = email_membre.getText();
+               Utilisateur u = new Utilisateur();
               StringBuilder errors=new StringBuilder();
         if (prenom_membre.getText().isEmpty()) {
 
@@ -183,12 +202,33 @@ public class InscriptionController implements Initializable {
             alert.showAndWait();
             return;
         }
+u.setActivation_token(UUID.randomUUID().toString());
+        System.out.println(u.getActivation_token());
+ Utilisateur m = new Utilisateur(nom_membre.getText() , prenom_membre.getText(),"ROLE_ADMIN", email_membre.getText(), mdp_membre.getText(), tel_membre.getText(),"Debloquer",adresse_membre.getText(),u.getActivation_token(),(Date.valueOf(date_membre.getValue())) );       // Utilisateur p6 = new Utilisateur("chihe22b11", "cha2211h" , "ROLE_ADMIN" , "chihe1221b@gmail.com" ,"chiheb","9393399" );
+    
+    
+ sp.ajouter(m);
+ 
 
- Utilisateur m = new Utilisateur(nom_membre.getText() , prenom_membre.getText(),"ROLE_ADMIN", email_membre.getText(), mdp_membre.getText(), tel_membre.getText(),"Debloquer",adresse_membre.getText(),(Date.valueOf(date_membre.getValue())) );       // Utilisateur p6 = new Utilisateur("chihe22b11", "cha2211h" , "ROLE_ADMIN" , "chihe1221b@gmail.com" ,"chiheb","9393399" );
-        sp.ajouter(m);
-        CodeQr(event);
-        affichImage();
+
+String content = "Activation de votre compte\n"
+                        + "veuillez clicker sur le lien ci-dessus pour l activer  votre compte\n"
+                        + "http://127.0.0.1:8000/activation/" + u.getActivation_token();
+              //  u.setActivation_token(null);
+       // System.out.println("bilel");        
+                
+        Mailapi.send("sporttech007@gmail.com", "Zayani321",email_membre.getText(), "Activation de votre compte", "veuillez clicker sur le lien ci-dessus pour l activer  votre compte:\n "+ content);
+                
+
+
+
+          
+  
+        //CodeQr(event);
+       // affichImage();
         affichpdp();
+        //refresh();
+        
         
         
         
@@ -210,7 +250,7 @@ public class InscriptionController implements Initializable {
         ImageView i = new ImageView();
         File f = new File(image);
         Image im = new Image(f.toURI().toString());
-        qr.setImage(im);
+        //qr.setImage(im);
     }
       
       
@@ -302,5 +342,29 @@ public class InscriptionController implements Initializable {
         }
 
     }
+    public void setAge(String age) {
+        this.age.setText(String.valueOf(age));
+    }
+
+    private void age(ActionEvent event) {
+        PersonneCRUD pcd = new PersonneCRUD();
+        int a = pcd.calculateAge(Date.valueOf(date_membre.getValue()) );
+        
+        age.setText(String.valueOf(a));
+        setAge(String.valueOf(a));
+    }
+    
+    public void refresh(){
+       
+        nom_membre.setText("");
+        prenom_membre.setText("");
+        date_membre.setValue(null);
+        email_membre.setText("");
+        tel_membre.setText("");
+        mdp_membre.setText("");
+        age.setText("");
+        adresse_membre.setText("");
+    }
+    
     
 }
