@@ -10,14 +10,21 @@ import javax.swing.JFileChooser;
 import etud.services.ProduitCRUD;
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -80,40 +87,70 @@ public class DetailsProduitController implements Initializable {
     private Button deleteproduit;
     @FXML
     private Button btnupload;
+    @FXML
+    private TextField recherche;
+    @FXML
+    private PieChart chart;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
         ProduitCRUD p1 = new ProduitCRUD() ; 
         combomarque.setItems(p1.GetListmarque());
         combosouscat.setItems(p1.GetListsouscategorie());
         refreshlist();
+        
+       
         tvproduit.setOnMouseClicked( e -> {
             Produit p = new Produit();
-            
             p = tvproduit.getSelectionModel().getSelectedItem() ; 
             tfid.setText( String.valueOf( p.getId())) ; 
             pprix.setText(String.valueOf( p.getPrix()) ) ;
-            
             pimage.setText(p.getImage()) ;
             pquantite.setText( String.valueOf(p.getQuantite()) )  ; 
-            
             ptaille.setText(p.getTaille()) ;
             pnom.setText( p.getNom()) ; 
-            
             combosouscat.setValue( p1.GetsouscategorieName( p.getSousCategorie()) );
             combomarque.setValue( p1.GetmarqueName( p.getMarque() ) );
-            
-            
             pdescription.setText(p.getdescription()) ; 
-
-
             });
+       
+        
+        stat() ; 
+
+
+        
+        
+        
+        
     }    
     
+    
+    public void stat()
+    {
+        ObservableList<PieChart.Data> piechartdata = FXCollections.observableArrayList( ) ;
+        ProduitCRUD sp = new ProduitCRUD();
+        List<Produit> ProduitList = new ArrayList<>( sp.AfficheProduit()) ; 
+        Map<String, Long> count = ProduitList.stream().collect(Collectors.groupingBy(e -> sp.GetmarqueName(e.getMarque()),Collectors.counting() )) ;
+        for (Map.Entry<String, Long> entry : count.entrySet() ) {
+       
+            piechartdata.add( new PieChart.Data(entry.getKey(), entry.getValue()) ) ; 
+        }
+
+        chart.setData(piechartdata) ;
+    
+    
+    
+    
+    }
+    
     public void refreshlist(){
+        
+        
             ProduitCRUD p = new ProduitCRUD ();
             Produit prod = new Produit() ; 
             ObservableList<Produit> list = p.AfficheProduit() ;
@@ -126,7 +163,33 @@ public class DetailsProduitController implements Initializable {
         tvmarque.setCellValueFactory( cellData -> new SimpleStringProperty( p.GetmarqueName(cellData.getValue().getMarque() ) ) );
         tvsouscategorie.setCellValueFactory( cellData -> new SimpleStringProperty( p.GetsouscategorieName(cellData.getValue().getSousCategorie() ) ) );
         tvdescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        tvproduit.setItems(list) ; 
+        
+        
+        FilteredList<Produit> filteredData = new FilteredList<>(list, b -> true);
+        recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(Produit -> {
+                // If filter text is empty, display all persons.
+                                
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                
+                
+                String lowerCaseFilter = newValue.toLowerCase();
+                
+                if (Produit.getNom().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                    return true; // Filter matches first name.
+                }
+                if (p.GetmarqueName(Produit.getMarque()).toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                    return true; 
+                }
+                
+                     else  
+                         return false;
+            });
+        });
+
+        tvproduit.setItems(filteredData);
         
     }
     
@@ -209,6 +272,7 @@ public class DetailsProduitController implements Initializable {
         ProduitCRUD prod1 = new ProduitCRUD();
          prod1.AjoutProduit(p);
          refreshlist();
+         stat() ; 
         
     }
 
@@ -290,6 +354,7 @@ public class DetailsProduitController implements Initializable {
         ProduitCRUD prod1 = new ProduitCRUD();
          prod1.UpdateProduit(p);
          refreshlist();
+         stat();
         
     }
 
@@ -301,6 +366,7 @@ public class DetailsProduitController implements Initializable {
         p.setId(id);
         p1.DeleteProduit(p);
          refreshlist();
+         stat();
         
     }
 
@@ -317,4 +383,5 @@ public class DetailsProduitController implements Initializable {
     
     
     
+   
 }

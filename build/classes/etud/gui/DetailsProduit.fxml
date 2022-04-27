@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -11,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="etud.gui.DetailsProduitController">
    <children>
-      <TableView fx:id="tvproduit" layoutX="447.0" layoutY="14.0" prefHeight="461.0" prefWidth="730.0">
+      <TableView fx:id="tvproduit" layoutX="447.0" layoutY="60.0" prefHeight="276.0" prefWidth="730.0">
         <columns>
           <TableColumn fx:id="tvprix" prefWidth="75.0" text="prix" />
           <TableColumn fx:id="tvimage" prefWidth="75.0" text="image" />
@@ -102,5 +103,8 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
+      <TextField fx:id="recherche" layoutX="600.0" layoutY="14.0" />
+      <Label layoutX="510.0" layoutY="19.0" text="Search" />
+      <PieChart fx:id="chart" layoutX="623.0" layoutY="338.0" prefHeight="262.0" prefWidth="328.0" />
    </children>
 </AnchorPane>
