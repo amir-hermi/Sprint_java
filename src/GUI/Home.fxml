@@ -74,12 +74,20 @@
                      <children>
                         <HBox prefHeight="60.0" prefWidth="335.0">
                            <children>
-                              <Label fx:id="fruitNameLable" prefHeight="48.0" prefWidth="276.0" text="Peach" textFill="WHITE">
+                              <ImageView fx:id="delete" fitHeight="36.0" fitWidth="32.0" onMouseClicked="#deleteP" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../delete.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="fruitNameLable" prefHeight="44.0" prefWidth="147.0" text="Peach" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria" size="36.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="fruitPriceLabel" prefHeight="57.0" prefWidth="171.0" text="\$2.99" textFill="WHITE">
+                              <Label fx:id="fruitPriceLabel" prefHeight="44.0" prefWidth="118.0" text="\$2.99" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria" size="36.0" />
                                  </font>
@@ -148,7 +156,7 @@
                               <ComboBox fx:id="tailleInput" prefHeight="45.0" prefWidth="130.0" promptText="M" styleClass="comboBox" stylesheets="@../values/style.css" />
                            </children>
                         </HBox>
-                        <Button fx:id="addToCart" mnemonicParsing="false" onAction="#addToPanier" prefHeight="50.0" prefWidth="270.0" styleClass="add-btn" stylesheets="@../values/style.css" text="ADD TO CART" textFill="#828282">
+                        <Button fx:id="addToCart" mnemonicParsing="false" onAction="#addToPanier" prefHeight="50.0" prefWidth="270.0" styleClass="add-btn" stylesheets="@../values/style.css" text="Ajouter au panier" textFill="#828282">
                            <VBox.margin>
                               <Insets bottom="20.0" top="30.0" />
                            </VBox.margin>
@@ -183,6 +191,14 @@
                                        <HBox.margin>
                                           <Insets left="20.0" top="15.0" />
                                        </HBox.margin>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DT">
+                                       <HBox.margin>
+                                          <Insets left="5.0" top="14.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
                                     </Text>
                                  </children>
                               </HBox>
@@ -231,11 +247,6 @@
                                           <Insets left="20.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#showPanier" prefHeight="31.0" prefWidth="160.0" styleClass="search-button" stylesheets="@../values/style.css" text="Panier">
-                                       <HBox.margin>
-                                          <Insets left="20.0" />
-                                       </HBox.margin>
-                                    </Button>
                                     <Button mnemonicParsing="false" onAction="#showProduits" prefHeight="31.0" prefWidth="160.0" styleClass="search-button" stylesheets="@../values/style.css" text="Produits">
                                        <HBox.margin>
                                           <Insets left="20.0" />
@@ -244,85 +255,107 @@
                                  </children>
                               </HBox>
                            </children></Pane>
-                        <ImageView fx:id="panier" fitHeight="50.0" fitWidth="55.0" pickOnBounds="true" smooth="false">
+                        <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="28.0" prefWidth="88.0">
+                                 <children>
+                                    <Text fx:id="element" fill="#d00f0f" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Elements">
+                                       <HBox.margin>
+                                          <Insets left="7.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets right="5.0" top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="TOP_CENTER" prefHeight="28.0" prefWidth="88.0">
+                                 <children>
+                                    <Text fx:id="mtTot" fill="#ff7e08" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DT">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <ImageView fx:id="panier" fitHeight="50.0" fitWidth="55.0" onMousePressed="#panier" pickOnBounds="true" smooth="false">
                            <image>
                               <Image url="@../../activshop_panier_logo.png" />
                            </image>
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox prefHeight="59.0" prefWidth="840.0">
-                     <children>
-                        <Pane prefHeight="84.0" prefWidth="96.0" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="380.0" styleClass="free-delivery-card" stylesheets="@../values/style.css">
-                           <children>
-                              <VBox alignment="CENTER" prefHeight="100.0" prefWidth="214.0">
-                                 <children>
-                                    <Label prefHeight="29.0" prefWidth="190.0" text="Free delivery" textFill="#878787">
-                                       <font>
-                                          <Font name="Cambria Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label prefHeight="16.0" prefWidth="190.0" text="over $20 order" textFill="#878787">
-                                       <font>
-                                          <Font name="Cambria" size="15.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                              <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/ic_delivery.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                        <Pane prefHeight="84.0" prefWidth="96.0" HBox.hgrow="ALWAYS" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="336.0" styleClass="shopping-online-card" stylesheets="@../values/style.css">
-                           <children>
-                              <VBox alignment="CENTER" prefHeight="100.0" prefWidth="203.0">
-                                 <children>
-                                    <Label prefHeight="29.0" prefWidth="190.0" text="Shopping online" textFill="#878787">
-                                       <font>
-                                          <Font name="Cambria Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label prefHeight="20.0" prefWidth="207.0" text="get your shopping in same day" textFill="#878787">
-                                       <font>
-                                          <Font name="Cambria" size="15.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                              <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/ic_stopwatch.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                        <Pane prefHeight="84.0" prefWidth="96.0" />
-                     </children>
+                  <HBox alignment="CENTER" prefHeight="59.0" prefWidth="859.0">
                      <VBox.margin>
-                        <Insets left="20.0" right="20.0" top="10.0" />
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                      </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="626.0" prefWidth="905.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="676.0" prefWidth="1500.0" styleClass="transparent" stylesheets="@../values/style.css">
+                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="595.0" styleClass="free-delivery-card" stylesheets="@../values/style.css">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Panier">
+                                 <font>
+                                    <Font name="Bell MT Bold" size="32.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="626.0" prefWidth="905.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="656.0" prefWidth="543.0" styleClass="transparent" stylesheets="@../values/style.css" HBox.hgrow="ALWAYS">
                            <content>
-                              <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
+                              <GridPane fx:id="grid" prefHeight="664.0" prefWidth="515.0">
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" />
                                  </rowConstraints>
                                  <padding>
-                                    <Insets left="20.0" />
+                                    <Insets left="5.0" />
                                  </padding>
                               </GridPane>
                            </content>
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
+                        </ScrollPane>
+                        <ScrollPane fx:id="scroll2" fitToHeight="true" fitToWidth="true" prefHeight="676.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+                           <content>
+                              <VBox alignment="TOP_CENTER" cache="true" mouseTransparent="true" prefHeight="660.0" prefWidth="425.0" snapToPixel="false" style="-fx-background-color: #e1e1ea; -fx-background-insets: 0.0 5.0 0.0 5.0; -fx-border-radius: 5.0;">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recommandation">
+                                       <font>
+                                          <Font name="Berlin Sans FB Bold" size="28.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <GridPane fx:id="relGrid">
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </content>
                         </ScrollPane>
                      </children>
                   </HBox>

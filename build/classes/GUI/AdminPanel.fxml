@@ -17,7 +17,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="131.0" prefWidth="282.0" style="-fx-background-color: #003366;">
                      <children>
-                        <ImageView fitHeight="76.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="logo" disable="true" fitHeight="143.0" fitWidth="164.0" pickOnBounds="true" preserveRatio="true" />
                         <Text fill="#ff8400" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SportTech">
                            <font>
                               <Font name="Berlin Sans FB Demi Bold" size="24.0" />
@@ -102,19 +102,22 @@
                               <Font name="Berlin Sans FB Bold" size="15.0" />
                            </font>
                         </Button>
-                        <ComboBox prefWidth="150.0" promptText="Filtrer" style="-fx-background-color: orange; -fx-background-radius: 20;">
+                        <ComboBox fx:id="filtre" prefWidth="150.0" promptText="Filtrer" style="-fx-background-color: orange; -fx-background-radius: 20;">
                            <HBox.margin>
                               <Insets left="20.0" top="20.0" />
                            </HBox.margin>
                         </ComboBox>
+                        <ImageView fx:id="exit" fitHeight="25.0" fitWidth="27.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="10.0" top="23.0" />
+                           </HBox.margin>
+                        </ImageView>
                         <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <TextField prefHeight="31.0" prefWidth="213.0" promptText="Rechercher" />
-                              <Button mnemonicParsing="false" text="Button">
+                              <TextField fx:id="rechercheField" prefHeight="31.0" prefWidth="263.0" promptText="Rechercher">
                                  <HBox.margin>
-                                    <Insets left="10.0" right="20.0" />
-                                 </HBox.margin>
-                              </Button>
+                                    <Insets right="20.0" />
+                                 </HBox.margin></TextField>
                            </children>
                         </HBox>
                      </children>

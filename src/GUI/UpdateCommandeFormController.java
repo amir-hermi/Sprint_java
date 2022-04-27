@@ -5,7 +5,9 @@
  */
 package GUI;
 
+import etud.entitiy.Commande;
 import etud.services.CommandeService;
+import etud.services.PanierService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,7 +42,7 @@ public class UpdateCommandeFormController implements Initializable {
     @FXML
     private Button confirmer;
     private int id;
-
+    private Commande commande;
     /**
      * Initializes the controller class.
      */
@@ -61,7 +63,8 @@ public class UpdateCommandeFormController implements Initializable {
 
     }
 
-    public void setData(int id, int ref, String status) {
+    public void setData(int id, int ref, String status , Commande c) {
+        this.commande=c;
         this.status.getSelectionModel().select(status);
         this.ref.setText(String.valueOf(ref));
         this.id = id;
@@ -72,8 +75,8 @@ public class UpdateCommandeFormController implements Initializable {
     private void confirmer(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            CommandeService cs = new CommandeService();
-            cs.UpdateCommande(id, status.getSelectionModel().getSelectedItem());
+            CommandeService cs = new CommandeService();          
+            PanierService.sendMail("amirhermi02@gmail.com", cs.UpdateCommande(id, status.getSelectionModel().getSelectedItem()));
             FXMLLoader loader =new FXMLLoader(getClass().getResource("AdminPanel.fxml"));
             AnchorPane root = loader.load();
             AdminPanelController pc = loader.getController();//jebna lcontroller mtaa personneDet 

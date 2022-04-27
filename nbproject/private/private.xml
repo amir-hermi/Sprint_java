@@ -3,24 +3,30 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/UpdateCommandeFormController.java</file>
-            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/AdminPanel.fxml</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/AdresseController.java</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/HomeController.java</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/etud/entitiy/Panier.java</file>
-            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/CommandeGUI.fxml</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/ProduitEditCommController.java</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/ProduitEditComm.fxml</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/RelatedProduit.fxml</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/etud/utils/MyListener.java</file>
-            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/etud/entitiy/Utilisateur.java</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/CommandeGUIController.java</file>
-            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/AdminPanelController.java</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/etud/test/Server.java</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/Home.fxml</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/etud/services/CommandeService.java</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/etud/test/MainClass.java</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/etud/entitiy/Commande.java</file>
-            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/etud/services/PanierService.java</file>
-            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/ProduitCom.java</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/Adresse.fxml</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/HomePage.java</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/values/style.css</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/UpdateCommandeFormController.java</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/AdminPanel.fxml</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/CommandeGUI.fxml</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/etud/entitiy/Utilisateur.java</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/AdminPanelController.java</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/etud/services/PanierService.java</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/ProduitCom.java</file>
+            <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/RelatedProduitController.java</file>
             <file>file:/E:/Workspace_Dev/java/Sprint_java/src/GUI/UpdateCommandeForm.fxml</file>
         </group>
     </open-files>

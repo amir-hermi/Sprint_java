@@ -12,6 +12,7 @@ import etud.entitiy.Utilisateur;
 import etud.services.ClientS;
 import etud.services.CommandeService;
 import etud.services.PanierService;
+import etud.services.PaymentServiceImpl;
 import etud.services.ServerS;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -108,7 +109,19 @@ public class MainClass {
         //server.run();
         //ClientS client = new ClientS();
         //sc.UpdateCommande(1, "En attente");
-        System.out.println(ps.afficheProduit());
+        //System.out.println(ps.afficheProduit());
+        //System.out.println(sc.rechercheCommande("en"));
+        //System.out.println(ps.nbProduit(1));
+        Utilisateur user = new Utilisateur("ali", "mehdi", "ali@gmail.com", "12345678", "amiramir", "bloque");
+		      PaymentServiceImpl p = new PaymentServiceImpl();
+// Create Stripe customer
+String id = p.createCustomer(user);
+
+// Assign ID to user 
+user.setStripeCustomerId(id);
+
+// Save user to database
+
         
          
         

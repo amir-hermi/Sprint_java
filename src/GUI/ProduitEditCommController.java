@@ -6,6 +6,8 @@
 package GUI;
 
 import etud.entitiy.Produit;
+import etud.services.CommandeService;
+import etud.services.PanierService;
 import etud.utils.MyListener;
 import java.io.File;
 import java.net.URL;
@@ -60,12 +62,11 @@ private MyListener listenner;
         priceLable.setText(String.valueOf(produit.getPrix()) );
         qte.setText(String.valueOf(produit.getQantite()));
         taille.setText(produit.getTaille());
-        final String imageURI = new File("E:/Workspace_Dev/java/Sprint_java/delete.png").toURI().toString();
-        final Image image = new Image(imageURI);
-        delete.setImage(image);
         final String imageURI2 = new File("C:/Users/hp/Desktop/amirtawtaw/public/images/" + p.getImage()).toURI().toString();
         final Image image2 = new Image(imageURI2);
         img.setImage(image2);
             }
+
+   
     
 }

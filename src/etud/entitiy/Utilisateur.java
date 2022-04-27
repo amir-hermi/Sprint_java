@@ -17,6 +17,7 @@ public class Utilisateur implements Serializable{
     private String username,lastname,email ,tel , password , etat;
     private Panier panier;
     private ArrayList<Commande>listCommande;
+    private String StripeCustomerId;
 
     public Utilisateur() {
     }
@@ -25,15 +26,22 @@ public class Utilisateur implements Serializable{
         this.id = id;
     }
 
-    public Utilisateur(String username, String lastname, String email, String tel, String password, String etat, Panier panier) {
+    public Utilisateur(String username, String lastname, String email, String tel, String password, String etat) {
         this.username = username;
         this.lastname = lastname;
         this.email = email;
         this.tel = tel;
         this.password = password;
         this.etat = etat;
-        this.panier = panier;
         this.listCommande = new ArrayList<>();
+    }
+
+    public String getStripeCustomerId() {
+        return StripeCustomerId;
+    }
+
+    public void setStripeCustomerId(String StripeCustomerId) {
+        this.StripeCustomerId = StripeCustomerId;
     }
 
     public int getId() {

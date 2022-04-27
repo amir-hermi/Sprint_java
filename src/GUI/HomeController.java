@@ -5,6 +5,11 @@
  */
 package GUI;
 
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.checkout.Session;
+
+import com.stripe.param.checkout.SessionCreateParams;
 import etud.entitiy.Commande;
 import etud.entitiy.Panier;
 import etud.entitiy.Produit;
@@ -17,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -30,6 +36,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -43,6 +50,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import static spark.Spark.get;
+import static spark.Spark.post;
+import static spark.Spark.port;
+import static spark.Spark.staticFiles;
 
 /**
  * FXML Controller class
@@ -97,24 +108,41 @@ public class HomeController implements Initializable {
     private Label tailleText;
     @FXML
     private ImageView panier;
+    @FXML
+    private ScrollPane scroll2;
+    @FXML
+    private GridPane relGrid;
+    private boolean test = false;
+    @FXML
+    private ImageView delete;
+    @FXML
+    private Text element;
+    @FXML
+    private Text mtTot;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setDetaille();
         final String imageURI2 = new File("E:/Workspace_Dev/java/Sprint_java/panier.png").toURI().toString();
         final Image image2 = new Image(imageURI2);
         panier.setImage(image2);
+        final String imageURI = new File("E:/Workspace_Dev/java/Sprint_java/delete.png").toURI().toString();
+        final Image image = new Image(imageURI);
+        delete.setImage(image);
+        delete.setVisible(false);
         showProduits();
+
     }
 
     public void setchoosenProduit(Produit p) {
         this.choosenP.clear();
         fruitNameLable.setText(p.getNom());
         fruitPriceLabel.setText(String.valueOf(p.getPrix()));
+        qteInput.setText("1");
         final String imageURI = new File("C:/Users/hp/Desktop/amirtawtaw/public/images/" + p.getImage()).toURI().toString();
-        System.out.println(imageURI);
         final Image image = new Image(imageURI);
         fruitImg.setImage(image);
         this.choosenP.add(p);
@@ -127,7 +155,6 @@ public class HomeController implements Initializable {
         qteInput.setText(String.valueOf(p.getQantite()));
         tailleInput.getSelectionModel().select(p.getTaille());
         final String imageURI = new File("C:/Users/hp/Desktop/amirtawtaw/public/images/" + p.getImage()).toURI().toString();
-        System.out.println(imageURI);
         final Image image = new Image(imageURI);
         fruitImg.setImage(image);
         this.choosenP.add(p);
@@ -146,6 +173,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void search(ActionEvent event) {
+        delete.setVisible(false);
         showProduits();
     }
 
@@ -175,13 +203,23 @@ public class HomeController implements Initializable {
             // Utilisateur u =new Utilisateur(1);
             for (Panier panier : ps.listPanier(1)) {
                 if (panier.getListPorduits().contains(this.choosenP.get(0))) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING, "Produit existe dans panier");
-                    alert.show();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Produit existe dans panier , vous voulez augmenter la quantite ? ?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        PanierService x = new PanierService();
+                        x.UpdateProduit(this.choosenP.get(0).getId(), this.choosenP.get(0).getQantite() + 1, this.choosenP.get(0).getTaille());
+                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Success Quantite augmenter");
+                        alert1.show();
+                        //setDetaille();
+                        showProduits();
+                    }
                 } else {
+
                     ps.UpdateProduit(this.choosenP.get(0).getId(), qte, taille);
                     ps.remplirPanier(1, this.choosenP.get(0));
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Produit ajouter au panier avec succes");
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Produit ajouter au panier avec succes");
                     alert.show();
+                    setDetaille();
                 }
             }
         }
@@ -205,8 +243,16 @@ public class HomeController implements Initializable {
         }
     }
 
-    @FXML
     private void showPanier(ActionEvent event) {
+
+        showPanier();
+    }
+
+    public void showPanier() {
+        setDetaille();
+        delete.setVisible(true);
+        scroll2.setVisible(true);
+        scroll.setPrefWidth(350);
         chosenFruitCard.setStyle("-fx-background-color: #009B5A;\n"
                 + "    -fx-background-radius: 30;");
         total = 0;
@@ -243,7 +289,6 @@ public class HomeController implements Initializable {
         int colm = 0;
         int row = 1;
         try {
-
             for (Produit p : list) {
                 this.total = total + (p.getPrix() * p.getQantite());
                 FXMLLoader fxmlloader = new FXMLLoader();
@@ -256,10 +301,32 @@ public class HomeController implements Initializable {
                     row++;
                 }
                 grid.add(anchorPane, colm++, row);
-
                 GridPane.setMargin(anchorPane, new Insets(5));
 
             }
+
+            int colm1 = 0;
+            int row1 = 1;
+            try {
+                Utilisateur u = new Utilisateur(1);
+                for (Produit p : cs.Recommandation(u)) {
+                    FXMLLoader fxmlloader = new FXMLLoader();
+                    fxmlloader.setLocation(getClass().getResource("ProduitComponent.fxml"));
+                    AnchorPane anchorPane = fxmlloader.load();
+                    ProduitCom produitComm = fxmlloader.getController();
+                    produitComm.setData(p, listener);
+                    if (colm1 == 3) {
+                        colm1 = 0;
+                        row1++;
+                    }
+                    relGrid.add(anchorPane, colm1++, row1);
+                    GridPane.setMargin(anchorPane, new Insets(10));
+                }
+
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+
         } catch (IOException ex) {
             System.out.println("error : " + ex.getMessage());
         }
@@ -269,37 +336,44 @@ public class HomeController implements Initializable {
     @FXML
     private void passerCommande(ActionEvent event) {
         if (total == 0) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "vous devez remplir la panier");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Vous devez remplir la panier");
             alert.show();
         } else {
-            CommandeService cs = new CommandeService();
-            PanierService ps = new PanierService();
-            Commande c = new Commande();
-            Utilisateur u = new Utilisateur(1);
-            ArrayList<Produit> list = new ArrayList<>();
-            for (Panier panier : ps.listPanier(1)) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "vous voulez passer la commande ?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                  CommandeService cs = new CommandeService();
+                PanierService ps = new PanierService();
+                Commande c = new Commande();
+                Utilisateur u = new Utilisateur(1);
+                ArrayList<Produit> list = new ArrayList<>();
+                for (Panier panier : ps.listPanier(1)) {
                 list = panier.getListPorduits();
+                }
+                String date = LocalDateTime.now().toString();
+                c.setMontant(total);
+                c.setProduits(list);
+                c.setUser(u);
+                c.setStatus("En attente");
+                c.setReference(String.valueOf(new Random().nextInt(9999999)));
+                c.setDate_creation(date);
+                cs.ajoutCommande(c);
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Commande effectuer avec succes");
+                alert1.show();
+                total = 0;
+                showPanier(event);
             }
-            String date = LocalDateTime.now().toString();
-            c.setMontant(total);
-            c.setProduits(list);
-            c.setUser(u);
-            c.setStatus("En attente");
-            c.setReference(String.valueOf(new Random().nextInt(9999999)));
-            c.setDate_creation(date);
-            cs.ajoutCommande(c);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Commande effectuer avec succes");
-            alert.show();
-            total = 0;
-            showPanier(event);
 
         }
     }
 
     @FXML
     private void showCommande(ActionEvent event) {
+        setDetaille();
+        delete.setVisible(false);
+        scroll2.setVisible(false);
+        scroll.setPrefWidth(1200);
         final String imageURI = new File("E:/Workspace_Dev/java/Sprint_java/edit.png").toURI().toString();
-        System.out.println(imageURI);
         final Image image = new Image(imageURI);
         fruitImg.setImage(image);
         chosenFruitCard.setStyle("-fx-background-color: #B018F5;\n"
@@ -352,15 +426,6 @@ public class HomeController implements Initializable {
                     row++;
                 }
                 grid.add(anchorPane, colm++, row);
-
-                /* scroll.setMinWidth(Region.USE_COMPUTED_SIZE);
-                scroll.setMaxWidth(Region.USE_COMPUTED_SIZE);
-                scroll.setPrefWidth(Region.USE_COMPUTED_SIZE);
-               // scroll.setPrefWidth(Region.USE_PREF_SIZE);
-                scroll.setMinHeight(Region.USE_COMPUTED_SIZE);
-                scroll.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                scroll.setMaxHeight(Region.USE_COMPUTED_SIZE);
-                //scroll.setPrefHeight(Region.USE_PREF_SIZE);*/
                 GridPane.setMargin(anchorPane, new Insets(5));
 
             }
@@ -372,11 +437,25 @@ public class HomeController implements Initializable {
 
     @FXML
     private void showProduits(ActionEvent event) {
+
         showProduits();
     }
 
-    private void showProduits() {
+    private void setDetaille() {
+        PanierService cs = new PanierService();
+        this.element.setText(String.valueOf(cs.nbProduit(1)));
+        this.mtTot.setText(String.valueOf(cs.totalMontantProduit(1)));
+    }
 
+    private void showProduits() {
+        setDetaille();
+        addToCart.setText("Ajouter au panier");
+        isCommandeLayout = false;
+        delete.setVisible(false);
+        qteLayout.setVisible(true);
+        orLayout.setVisible(true);
+        scroll2.setVisible(false);
+        scroll.setPrefWidth(1200);
         chosenFruitCard.setStyle("-fx-background-color: #F16C31;\n"
                 + "    -fx-background-radius: 30;");
         grid.getChildren().clear();
@@ -419,20 +498,30 @@ public class HomeController implements Initializable {
                     row++;
                 }
                 grid.add(anchorPane, colm++, row);
-                /* grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                grid.setPrefWidth(Region.USE_PREF_SIZE);
-
-                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                grid.setPrefHeight(Region.USE_PREF_SIZE);*/
                 GridPane.setMargin(anchorPane, new Insets(10));
-
             }
         } catch (IOException ex) {
             System.out.println("error : " + ex.getMessage());
         }
 
+    }
+
+    @FXML
+    private void deleteP(MouseEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Commande modifier avec succes");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            PanierService cs = new PanierService();
+            cs.deleteProduitFromPanier(1, choosenP.get(0));
+            showPanier();
+        }
+
+    }
+
+    @FXML
+    private void panier(MouseEvent event) {
+        showPanier();
     }
 
 }

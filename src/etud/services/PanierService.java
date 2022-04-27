@@ -15,6 +15,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -147,7 +158,6 @@ public class PanierService {
              } 
                
             }
-             System.out.println(L);
             for(Produit p : L){
                  String req1 ="SELECT * from produit where id="+p.getId();
              Statement st1 = MyConnexion.getInstance().getCnx().createStatement();
@@ -164,6 +174,7 @@ public class PanierService {
                  prod.setPrix(Float.valueOf(rs2.getString("prix")) );
                  prod.setTaille(rs2.getString("taille"));
                  prod.setQantite(rs2.getInt("quantite"));
+                 prod.setImage(rs2.getString("image"));
                  if(!rec.contains(prod)){
                  rec.add(prod);    
                  }
@@ -217,4 +228,94 @@ public class PanierService {
           
          return prod;
      }
+      
+      
+      public int nbProduit(int idUtilisateur){
+         int res = 0;
+         try {
+            String requette ="SELECT * FROM panier where utilisateur_id ="+idUtilisateur+";";
+            Statement st = MyConnexion.getInstance().getCnx().createStatement();
+            ResultSet rs =st.executeQuery(requette);
+             
+            while (rs.next()) {  
+                 ArrayList<Produit> produits = new ArrayList<>();
+                 String req ="select count(*) FROM panierproduit WHERE panier_id ="+rs.getInt("id")+";";
+                  Statement stp = MyConnexion.getInstance().getCnx().createStatement();
+                 ResultSet rs1 =stp.executeQuery(req);
+                 while (rs1.next()) {
+                    res = rs1.getInt(1);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("ereur : "+ex.getMessage());
+        }
+         return res;
+     }
+      
+      
+      public float totalMontantProduit(int idUtilisateur){
+         float res =0f ;
+         try {
+            String requette ="SELECT * FROM panier where utilisateur_id ="+idUtilisateur+";";
+            Statement st = MyConnexion.getInstance().getCnx().createStatement();
+            ResultSet rs =st.executeQuery(requette);
+             
+            while (rs.next()) {  
+                 ArrayList<Produit> produits = new ArrayList<>();
+                 String req ="select* FROM panierproduit WHERE panier_id ="+rs.getInt("id")+";";
+                  Statement stp = MyConnexion.getInstance().getCnx().createStatement();
+                 ResultSet rs1 =stp.executeQuery(req);
+                 while(rs1.next()){
+                      String req2 ="select* FROM produit WHERE id ="+rs1.getInt("produit_id")+";";
+                  Statement stp2 = MyConnexion.getInstance().getCnx().createStatement();
+                 ResultSet rs2 =stp2.executeQuery(req2);
+                     while (rs2.next()) {
+                           res = res + (rs2.getFloat("quantite")* rs2.getInt("prix"));        
+                     }
+                 }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("ereur : "+ex.getMessage());
+        }
+         return res;
+     }
+      
+    public static void sendMail(String recepient , Commande c){
+         try {
+             System.out.println("Preparing to send email");
+             Properties properties = new Properties();
+             properties.put("mail.smtp.auth", "true");
+             properties.put("mail.smtp.starttls.enable", "true");
+             properties.put("mail.smtp.host", "smtp.gmail.com");
+             properties.put("mail.smtp.port", "587");
+             String myAccoutEmail = "sporttech007@gmail.com";
+             String password = "Zayani321";
+             Session session = Session.getInstance(properties,new Authenticator() {
+                 @Override
+                 protected PasswordAuthentication getPasswordAuthentication(){
+                     return new PasswordAuthentication(myAccoutEmail, password);
+                 }
+             });
+             Message message = prepareMessage(session , myAccoutEmail , recepient , c);
+             Transport.send(message);
+             System.out.println("Message sent successfully");
+         } catch (MessagingException ex) {
+             Logger.getLogger(PanierService.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }  
+    
+    private static Message prepareMessage(Session session , String myAccountEmail , String recepient , Commande c){
+        try{
+            Message message =new MimeMessage(session);
+            message.setFrom(new InternetAddress(myAccountEmail));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
+            message.setSubject("Notification de votre commande");
+            message.setContent(EmailHtmlCode.getHTMLCode(EmailHtmlCode.setHTMLCodeForProduit(c) , c),"text/html");
+            return message;
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
 }

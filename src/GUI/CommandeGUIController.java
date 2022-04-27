@@ -6,12 +6,16 @@
 package GUI;
 
 import etud.entitiy.Commande;
+import etud.services.CommandeService;
 import etud.utils.MyListener;
 import java.awt.Color;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -40,6 +44,8 @@ public class CommandeGUIController implements Initializable {
     private Text status;
     Commande commande;
     MyListener listener;
+    @FXML
+    private ImageView qrcode;
 
     /**
      * Initializes the controller class.
@@ -54,9 +60,13 @@ public class CommandeGUIController implements Initializable {
                 listener.onClickListener(commande);
     }
     public void setData(MyListener l , Commande c , int total){
+        CommandeService cs =new CommandeService();
          this.commande =c;
         this.listener = l;
         ref.setText(commande.getReference());
+        final String imageURI2 = new File(cs.qrCodeGenerateur(c)).toURI().toString();
+        final Image image1 = new Image(imageURI2);
+        qrcode.setImage(image1);
         montant.setText(String.valueOf(commande.getMontant()));
         total_produit.setText(String.valueOf(total));
         adresse.setText("mezel");
@@ -73,6 +83,11 @@ public class CommandeGUIController implements Initializable {
         }else{
             status.setStyle("-fx-fill: green;");
         }
+    }
+
+    @FXML
+    private void qr(MouseEvent event) {
+        listener.onClickListener(commande);
     }
     
 }

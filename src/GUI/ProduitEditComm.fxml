@@ -16,13 +16,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onMousePressed="#click" prefHeight="120.0" prefWidth="762.0" stylesheets="@../values/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ProduitEditCommController">
+<AnchorPane onMousePressed="#click" prefHeight="40.0" prefWidth="600.0" stylesheets="@../values/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ProduitEditCommController">
    <styleClass>
       <String fx:value="fruit-item" />
       <String fx:value="shadow" />
    </styleClass>
    <children>
-      <HBox alignment="CENTER_LEFT" layoutX="-1.0" prefHeight="94.0" prefWidth="208.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER_LEFT" layoutX="-1.0" prefHeight="94.0" prefWidth="208.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <ImageView fx:id="img" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -73,21 +73,11 @@
             </Text>
             <Text fx:id="taille" strokeType="OUTSIDE" strokeWidth="0.0" text="M">
                <HBox.margin>
-                  <Insets left="5.0" />
+                  <Insets left="5.0" right="10.0" />
                </HBox.margin>
             </Text>
-            <ImageView fx:id="delete" fitHeight="41.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets left="150.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../../delete-icon-image-15.png" />
-               </image>
-            </ImageView>
+            <HBox alignment="CENTER_RIGHT" prefHeight="120.0" prefWidth="155.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </children>
-   <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </padding>
 </AnchorPane>
