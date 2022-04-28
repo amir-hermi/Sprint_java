@@ -28,8 +28,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.activation.DataSource;
 import javax.swing.JOptionPane;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -83,22 +87,44 @@ public class LoginController implements Initializable {
                  Session.setId(rs.getInt("id"));
                 Session.setUsername(rs.getString("username"));
                 Session.setEmail(rs.getString("email"));
+                Session.setAdresse(rs.getString("adresse"));
+                Session.setLastname(rs.getString("lastname"));
+                Session.setTel(rs.getString("tel"));
+                Session.setPassword(rs.getString("password"));
                 Session.setRoles(rs.getString("roles"));
                 Session.setEtat(rs.getString("etat"));
-               
+                Session.setActivation_token(rs.getString("Activation_token"));
+                
+                
+                System.out.println(Session.getActivation_token());
+             
              if(Session.getEtat().equals("Bloquer")){
                   JOptionPane.showMessageDialog(null, "Vous etes bloquer");
+ 
              }
-            /* if(!Session.getActivation_token().isEmpty()){
-                  JOptionPane.showMessageDialog(null, "vous veillez dabord activer votre compte ");
+             
+             else  if(!Session.getActivation_token().equals("") ){
+                 
+                  JOptionPane.showMessageDialog(null, "confirmer votre compte sporttech");
+ 
+                TrayNotification tray = new TrayNotification();
+        AnimationType type = AnimationType.SLIDE;
+        tray.setAnimationType(type);
+        tray.setTitle("Confirmer votre compte ");
+        tray.setMessage("Un email de confirmation compte a ete envoyer \n verifier votre boite mail");
+        tray.setNotificationType(NotificationType.WARNING);
+        tray.showAndDismiss(Duration.millis(5000));
+ 
              }
-*/
-                
-             if(Session.getRoles().equals("[\"ROLE_ADMIN\"]") ){
+             
+              
+   
+ 
+           else  if(Session.getRoles().equals("[\"ROLE_ADMIN\"]") ){
                   JOptionPane.showMessageDialog(null, "E-mail and Password is Correct");
             try {
                 System.out.println(Session.getEtat());
-                root = FXMLLoader.load(getClass().getResource("../gui/interfaceMembre.fxml"));
+                root = FXMLLoader.load(getClass().getResource("../gui/InterfaceAdmin.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -110,17 +136,19 @@ public class LoginController implements Initializable {
                      JOptionPane.showMessageDialog(null, "E-mail and Password is Correct");
             try {
                 System.out.println(Session.getEtat());
-                root = FXMLLoader.load(getClass().getResource("../gui/InterfaceAdmin.fxml"));
+                root = FXMLLoader.load(getClass().getResource("../gui/interfaceMembres.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
            
                     
                 }
+             
             
                   
              
@@ -134,7 +162,7 @@ public class LoginController implements Initializable {
             JOptionPane.showMessageDialog(null, e);
         }
           
-             
+        
 
     }
     
@@ -164,7 +192,7 @@ public class LoginController implements Initializable {
     private void action_forgot_pass(ActionEvent event) {
               Stage Stage1 ;
         try {
-                     Parent root = FXMLLoader.load(getClass().getResource("RestPass.fxml"));
+                     Parent root = FXMLLoader.load(getClass().getResource("RestPasss.fxml"));
                         Stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
                                       root.setOnMousePressed(pressEvent -> {
                         root.setOnMouseDragged(dragEvent -> {

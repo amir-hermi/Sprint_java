@@ -77,7 +77,7 @@
             
                   <TextField fx:id="email_membre" layoutX="116.0" layoutY="354.0" prefHeight="37.0" prefWidth="300.0" style="-fx-background-radius: 60;" AnchorPane.leftAnchor="116.0" />
                   <TextField fx:id="src" layoutX="121.0" layoutY="567.0" prefHeight="30.0" prefWidth="300.0" promptText="Profile Image" style="-fx-background-radius: 60;" />
-                  <PasswordField fx:id="mdp_membre" layoutX="121.0" layoutY="518.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-radius: 60;" />
+                  <PasswordField fx:id="mdp_membre" layoutX="121.0" layoutY="508.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-radius: 60;" />
                   <Button layoutX="83.0" layoutY="567.0" mnemonicParsing="false" onAction="#importImg" prefHeight="25.0" prefWidth="32.0" text="Button" />
                   <Label layoutX="116.0" layoutY="259.0" prefHeight="21.0" prefWidth="185.0" text="Date de naissance :" wrapText="true">
                      <font>
@@ -101,6 +101,7 @@
                         <Image url="@../image/add-friend-removebg-preview.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="labelMdp" layoutX="135.0" layoutY="539.0" prefHeight="21.0" prefWidth="237.0" />
                </children>
             </AnchorPane>
             <Button fx:id="switch_signin_membre_btn" layoutX="71.0" layoutY="144.0" mnemonicParsing="false" onAction="#action_switch_signin_membre" prefHeight="45.0" prefWidth="322.0" style="-fx-background-color: #f55e00;" text="SIGN IN" textFill="WHITE">

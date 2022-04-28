@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.connexion3A30.gui.InterfaceAdminController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="edu.connexion3A30.gui.InterfaceAdminController">
+   <children>
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="650.0" prefWidth="998.0" style="-fx-background-color: linear-gradient(to bottom, #ffbc63, #ffdcad);">
+         <children>
+            <Pane fx:id="paneId" maxHeight="560.0" maxWidth="1000.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="56.0" prefWidth="998.0" style="-fx-background-color: #3d3242; -fx-background-radius: 10;">
+               <children>
+                  <Text fill="WHITE" layoutX="380.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="espace Admin SportTech">
+                     <font>
+                        <Font name="Calibri Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="profilbtn" layoutX="26.0" layoutY="15.0" mnemonicParsing="false" onAction="#ActionProfilbtn" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: linear-gradient(to bottom, #ff8400, #ffb566); -fx-background-radius: 60;" text="Profil" textFill="WHITE" />
+                  <Button fx:id="logoffbtn1" layoutX="884.0" layoutY="15.0" mnemonicParsing="false" onAction="#ActionLogOffbtn" prefHeight="31.0" prefWidth="96.0" style="-fx-background-color: linear-gradient(to bottom, #ff8400, #ffb566); -fx-background-radius: 60;" text="Log off" textFill="WHITE" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

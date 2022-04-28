@@ -17,6 +17,9 @@ public class Session {
     private static String roles;
     private static int id_Lo;
     private static String etat;
+    private static String tel;
+    private static String password;
+    private static String adresse;
     private static String activation_token;
 
    
@@ -82,5 +85,28 @@ public class Session {
 
     public static void setRoles(String roles) {
         Session.roles = roles;
+    }
+      public static String getTel() {
+        return tel;
+    }
+
+    public static void setTel(String tel) {
+        Session.tel = tel;
+    }
+    
+     public static String getPassword() {
+        return password;
+    }
+
+    public static void setPassword(String password) {
+        Session.password = password;
+    }
+    
+     public static String getAdresse() {
+        return password;
+    }
+
+    public static void setAdresse(String adresse) {
+        Session.adresse = adresse;
     }
 }

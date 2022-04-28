@@ -44,10 +44,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -89,6 +93,8 @@ public class InscriptionController implements Initializable {
     private TextArea adresse_membre;
     @FXML
     private Label age;
+    @FXML
+    private Label labelMdp;
  
 
     /**
@@ -103,13 +109,39 @@ public class InscriptionController implements Initializable {
         age.setText(String.valueOf(a));
         setAge("votre age est :"+String.valueOf(a)+" Ans");
         });
-         
+         isValidPassword();
         
     }    
+    
+    public boolean isValidPassword(){
+        boolean isValid = true;
+        if (mdp_membre.getText().trim().length() > 15 || mdp_membre.getText().trim().length() < 10 ){
+            isValid=false;
+        }
+        String upperCaseChars = "(.*[A-Z].*)";
+        if (!mdp_membre.getText().matches(upperCaseChars )){
+            isValid = false;
+        }
+        String lowerCaseChars = "(.*[a-z].*)";
+        if (!mdp_membre.getText().matches(lowerCaseChars ))
+        {
+            isValid = false;
+        }
+        String numbers = "(.*[0-9].*)";
+        if (!mdp_membre.getText().matches(numbers ))
+        {
+            isValid = false;
+        }
+        String specialChars = "(.*[@,#,$,%].*$)";
+        if (!mdp_membre.getText().matches(specialChars )){
+            isValid = false;
+        }
+        return isValid;
+    }
 
     @FXML
     private void action_add_membre(ActionEvent event) {
-        
+         if (isValidPassword()){
          PersonneCRUD sp = new PersonneCRUD();
            String mail = email_membre.getText();
                Utilisateur u = new Utilisateur();
@@ -202,23 +234,32 @@ public class InscriptionController implements Initializable {
             alert.showAndWait();
             return;
         }
+        isValidPassword();
 u.setActivation_token(UUID.randomUUID().toString());
         System.out.println(u.getActivation_token());
  Utilisateur m = new Utilisateur(nom_membre.getText() , prenom_membre.getText(),"ROLE_ADMIN", email_membre.getText(), mdp_membre.getText(), tel_membre.getText(),"Debloquer",adresse_membre.getText(),u.getActivation_token(),(Date.valueOf(date_membre.getValue())) );       // Utilisateur p6 = new Utilisateur("chihe22b11", "cha2211h" , "ROLE_ADMIN" , "chihe1221b@gmail.com" ,"chiheb","9393399" );
     
     
  sp.ajouter(m);
+             System.out.println("khalil");
  
 
 
 String content = "Activation de votre compte\n"
                         + "veuillez clicker sur le lien ci-dessus pour l activer  votre compte\n"
-                        + "http://127.0.0.1:8000/activation/" + u.getActivation_token();
+                        + "http://127.0.0.1:8000/activationJava/" + u.getActivation_token();
               //  u.setActivation_token(null);
        // System.out.println("bilel");        
                 
         Mailapi.send("sporttech007@gmail.com", "Zayani321",email_membre.getText(), "Activation de votre compte", "veuillez clicker sur le lien ci-dessus pour l activer  votre compte:\n "+ content);
-                
+              
+          TrayNotification tray = new TrayNotification();
+        AnimationType type = AnimationType.SLIDE;
+        tray.setAnimationType(type);
+        tray.setTitle("Compte creer");
+        tray.setMessage("Un email de confirmation compte a ete envoyer \n verifier votre boite mail");
+        tray.setNotificationType(NotificationType.INFORMATION);
+        tray.showAndDismiss(Duration.millis(5000));
 
 
 
@@ -228,7 +269,35 @@ String content = "Activation de votre compte\n"
        // affichImage();
         affichpdp();
         //refresh();
-        
+         }else{
+          
+            if (!isValidPassword()){
+                mdp_membre.setStyle("-fx-border-color: #f00020");
+                if (mdp_membre.getText().trim().length() > 15 || mdp_membre.getText().trim().length() < 10 ){
+                    labelMdp.setText("Password must be less than 15 and more than 10");
+                }
+                String upperCaseChars = "(.*[A-Z].*)";
+                if (!mdp_membre.getText().matches(upperCaseChars )){
+                    labelMdp.setText("Password must have atleast one uppercase character");
+                }
+                String lowerCaseChars = "(.*[a-z].*)";
+                if (!mdp_membre.getText().matches(lowerCaseChars )){
+                    labelMdp.setText("Password must have atleast one lowercase character");
+                }
+                String numbers = "(.*[0-9].*)";
+                if (!mdp_membre.getText().matches(numbers ))
+                {
+                    labelMdp.setText("Password must have atleast one number");
+                }
+                String specialChars = "(.*[@,#,$,%].*$)";
+                if (!mdp_membre.getText().matches(specialChars ))
+                {
+                    labelMdp.setText("Password must have atleast one special character among @#$%");
+                }
+            }else {
+                mdp_membre.setStyle("-fx-border-color: #22780F");
+                labelMdp.setVisible(false);
+            }
         
         
         
@@ -239,6 +308,10 @@ String content = "Activation de votre compte\n"
         
 
     }
+    }
+    
+   
+
 
     
       public void affichImage() {

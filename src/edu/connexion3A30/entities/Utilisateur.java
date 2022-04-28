@@ -23,8 +23,26 @@ public class Utilisateur implements Comparable<Utilisateur>{
      private String adresse ; 
      private String Activation_token ; 
      private Date date_naissance;
+
+    public Utilisateur(String username, String lastname, String email, String password, String tel) {
+        this.username = username;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.tel = tel;
+    }
+
+  
      
      
+
+    public Utilisateur(int id, String username, String lastname, String password, String tel) {
+        this.id = id;
+        this.username = username;
+        this.lastname = lastname;
+        this.password = password;
+        this.tel = tel;
+    }
 
     public Utilisateur() {
     }
@@ -76,6 +94,8 @@ public Utilisateur(int id, String username, String lastname, String role, String
         this.adresse = adresse;
         this.date_naissance = date_naissance;
     }
+
+    
 
     
 
@@ -168,12 +188,13 @@ public Utilisateur(int id, String username, String lastname, String role, String
         this.date_naissance = date_naissance;
     }
 
-   
-
     @Override
     public String toString() {
-        return "Utilisateur{" + "id=" + id + ", username=" + username + ", lastname=" + lastname + ", role=" + role + ", email=" + email + ", password=" + password + ", tel=" + tel + ", etat=" + etat + ", date_naissance=" + date_naissance + '}';
+        return "Utilisateur{" + "id=" + id + ", username=" + username + ", lastname=" + lastname + ", role=" + role + ", email=" + email + ", password=" + password + ", tel=" + tel + ", etat=" + etat + ", adresse=" + adresse + ", Activation_token=" + Activation_token + ", date_naissance=" + date_naissance + '}';
     }
+
+   
+
 
     public String getAdresse() {
         return adresse;

@@ -12,6 +12,11 @@ import edu.connexion3A30.util.MyConnection;
 import java.sql.Date;
 
 import java.util.Scanner;
+import javafx.util.Duration;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
+
 
 /**
  *
@@ -21,10 +26,18 @@ public class MainClass {
     public static void main(String[] args) throws Exception { 
        // MyConnexion cn = new MyConnexion();
        // Utilisateur p =new Utilisateur("Mejbri", "Hannibaal");
-       
+
        
         PersonneCRUD pcd = new PersonneCRUD();
         CommandeService aa = new CommandeService();
+        
+         TrayNotification tray = new TrayNotification();
+        AnimationType type = AnimationType.SLIDE;
+        tray.setAnimationType(type);
+        tray.setTitle("Compte creer");
+        tray.setMessage("Un email de confirmation compte a ete envoyer \n verifier votre boite mail");
+        tray.setNotificationType(NotificationType.INFORMATION);
+        tray.showAndDismiss(Duration.millis(5000));
       
 //        Utilisateur p2 =new Utilisateur();
         
@@ -35,8 +48,7 @@ public class MainClass {
           //p6.setId(62);
            Utilisateur p6 = new Utilisateur("ds", "hbaxwcieb", "ROLE_ADMIN", "sd@gmail.com","hfhfh","829434292", "jjdjjd", "jdjdjd","codecode", d) ;
          
-         
-         //Smsapi.sendSMS("amir hermi");
+ 
          
         //pcd.login("amir" , "hosyam");
         //p6.setId(35);
@@ -45,7 +57,8 @@ public class MainClass {
         
            //pcd.Delete(p6);
            
-       pcd.ajouter(p6);
+       //pcd.ajouter(p6);
+   
         
        // pcd.verifierEmailBd("bilel.;jnkjjkj@esprit.tn");
        // pcd.ajoutPersonne2(p6);

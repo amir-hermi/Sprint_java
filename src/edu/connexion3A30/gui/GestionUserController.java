@@ -10,6 +10,8 @@ import edu.connexion3A30.entities.Utilisateur;
 import edu.connexion3A30.services.PersonneCRUD;
 import java.io.IOException;
 import java.net.URL;
+import static java.rmi.Naming.list;
+import static java.util.Collections.list;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +20,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -155,44 +158,7 @@ public class GestionUserController implements Initializable {
        
        
     public void recherche_avance(){
-        FilteredList<Utilisateur> filtereddata=new FilteredList<>(data,b->true);
-        recherchetf.textProperty().addListener((observable,oldvalue,newValue) -> {
-            filtereddata.setPredicate(user->{
-                if(newValue==null||newValue.isEmpty()){
-                    return true;
-                }
-                String lowercasefilter=newValue.toLowerCase();
-                if(user.getUsername().toLowerCase().indexOf(lowercasefilter)!=-1){
-                    return true;
-                }
-                else if(user.getLastname().toLowerCase().indexOf(lowercasefilter)!=-1){
-                    return true;
-                }
-                else if(user.getAdresse().toLowerCase().indexOf(lowercasefilter)!=-1){
-                    return true;
-                }
-                else if(user.getEmail().toLowerCase().indexOf(lowercasefilter)!=-1){
-                    return true;
-                }
-                else if(String.valueOf(user.getTel()).indexOf(lowercasefilter)!=-1){
-                    return true;
-                }
-                else if(user.getRole().toString().toLowerCase().indexOf(lowercasefilter)!=-1){
-                    return true;
-                }
-                else if(user.getUsername().toLowerCase().indexOf(lowercasefilter)!=-1){
-                    return true;
-                }
-                else if(user.getDate_naissance().toString().toLowerCase().indexOf(lowercasefilter)!=-1){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-                
-            });
-        });
-        
+       
         
     }
     
@@ -213,6 +179,30 @@ public class GestionUserController implements Initializable {
         numero_col.setCellValueFactory(new PropertyValueFactory<>("tel"));
         role_col.setCellValueFactory(new PropertyValueFactory<>("Role"));
         tableviewuser.setItems(data);
+        
+        FilteredList<Utilisateur> filteredData = new FilteredList<>(data, b -> true);
+        recherchetf.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(Utilisateur -> {
+                // If filter text is empty, display all persons.
+                                
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                
+                
+                String lowerCaseFilter = newValue.toLowerCase();
+                
+                if (Utilisateur.getUsername().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                    return true; // Filter matches first name.
+                }
+              
+                
+                     else  
+                         return false;
+            });
+        });
+
+        tableviewuser.setItems(filteredData);
     }
 
     @FXML

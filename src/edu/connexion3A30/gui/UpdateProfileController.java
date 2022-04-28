@@ -5,17 +5,14 @@
  */
 package edu.connexion3A30.gui;
 
+import edu.connexion3A30.entities.Session;
 import edu.connexion3A30.entities.Utilisateur;
 import edu.connexion3A30.services.PersonneCRUD;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,10 +23,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.swing.JOptionPane;
 import tray.animations.AnimationType;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
@@ -39,7 +34,7 @@ import tray.notification.TrayNotification;
  *
  * @author bilel
  */
-public class ModifeUserController implements Initializable {
+public class UpdateProfileController implements Initializable {
 
     @FXML
     private TextField adresseU;
@@ -55,60 +50,34 @@ public class ModifeUserController implements Initializable {
     private TextField telU;
     @FXML
     private TextField pwdU;
-    
-    int id ; 
-    
-     PersonneCRUD us =new PersonneCRUD();
-           ObservableList<Utilisateur> data=FXCollections.observableArrayList();
-    
+        int id ; 
+         
        private Stage stage;
     private Scene scene;
     private Parent root;
-        long id_modif;
+     PersonneCRUD us =new PersonneCRUD();
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
-        
        
+      nomU.setText(Session.getUsername());
+      prenomU.setText(Session.getLastname());
+      emailU.setText(Session.getEmail());
+      telU.setText(Session.getTel());
+      pwdU.setText(Session.getPassword());
+      adresseU.setText(Session.getAdresse());
+      
+      
+        
+        // TODO
     }    
-
-
-    @FXML
-    private void annulerUserr(ActionEvent event) {
-         try {
-            root = FXMLLoader.load(getClass().getResource("GestionUsers.fxml"));
-        } catch (IOException ex) {
-            Logger.getLogger(InscriptionController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    
-    
 
     @FXML
     private void ModifeUser(ActionEvent event) {
-      
-        /*  PersonneCRUD sp = new PersonneCRUD();
-       int options = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "Vous etes sure de Modifier  cet utilisateur" ,"SERIOUS QUESTION", options, 3);
-        if (result == JOptionPane.YES_OPTION) {
-        Utilisateur m = new Utilisateur(nomU.getText() , prenomU.getText(),"ROLE_USER", emailU.getText(), pwdU.getText(), telU.getText(),"Debloquer",adresseU.getText(),(Date.valueOf(dateU.getValue())) );       // Utilisateur p6 = new Utilisateur("chihe22b11", "cha2211h" , "ROLE_ADMIN" , "chihe1221b@gmail.com" ,"chiheb","9393399" );
-        
-        sp.modifierUtlisateur(m);
-       
-        } else if (result == JOptionPane.NO_OPTION) {
-           
-        } 
-*/
-         PersonneCRUD u1 =new PersonneCRUD();
+        PersonneCRUD u1 =new PersonneCRUD();
             Utilisateur u=new Utilisateur();
         StringBuilder errors=new StringBuilder();
         if(nomU.getText().trim().isEmpty()){
@@ -150,18 +119,19 @@ public class ModifeUserController implements Initializable {
         }
         else{
             
-            u.setAdresse(adresseU.getText());
+          
+            
             u.setDate_naissance(java.sql.Date.valueOf(dateU.getValue()));
             u.setEmail(emailU.getText());
+           
             u.setTel(telU.getText());
+            u.setAdresse(adresseU.getText());
             u.setPassword(pwdU.getText());
             u.setLastname(prenomU.getText());
             u.setUsername(nomU.getText());
-            u.setId(id);
-            System.out.println(u);
-          
-                 us.UpdatePersonne1(u);
-
+            u.setId(Session.getId());
+           
+            us.UpdatePersonne1(u);
             TrayNotification tray = new TrayNotification();
             
             AnimationType type = AnimationType.POPUP;
@@ -171,8 +141,18 @@ public class ModifeUserController implements Initializable {
             tray.setNotificationType(NotificationType.NOTICE);
             tray.showAndDismiss(Duration.millis(1000));
             
-             try {
-            root = FXMLLoader.load(getClass().getResource("stionUsers.fxml"));
+             
+
+      
+        }
+        
+    
+    }
+
+    @FXML
+    private void annulerUserr(ActionEvent event) {
+           try {
+            root = FXMLLoader.load(getClass().getResource("interfaceMembres.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(InscriptionController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -181,28 +161,6 @@ public class ModifeUserController implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        }
-        
     }
-
-    void setData(int id, String username, String email, String adresse, String lastname, String password, String tel, Date date_naissance) {
-      this.id = id ; 
-      nomU.setText(username);
-      emailU.setText(email);
-      adresseU.setText(adresse);
-      prenomU.setText(lastname);
-      pwdU.setText(password);
-      telU.setText(tel);
-      dateU.setValue(LocalDate.MAX);
-    }
-    
-    
-      
-   
-
-    
-    
-
-   
     
 }

@@ -307,6 +307,7 @@ int id = 0 ;
             System.out.println(p);
             String requette ="update utilisateur set username = ? , lastname = ?  , email = ? , password = ? , adresse = ? , tel = ?  where id = ?";  //prepared statement asra3 et securise mn statment khter mara bark tet3ada b 4 phase w lbe3i phase execution bark
     //drop matekhdemch fl prepared , prepred statment drequette dynamique
+            System.out.println(p);
            PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requette);
            
            pst.setString(1, p.getUsername());
@@ -316,8 +317,9 @@ int id = 0 ;
            pst.setString(4, p.getPassword());
  
           
-           pst.setString(5, p.getTel());
-           pst.setString(6, p.getAdresse());
+         
+           pst.setString(5, p.getAdresse());
+             pst.setString(6, p.getTel());
            pst.setInt(7, p.getId());
             //pst.executeUpdate(requette); //select nestaamlou executequery
             pst.execute();
@@ -375,6 +377,25 @@ int id = 0 ;
         }
         return false;
     }
+       
+       
+    
+    public boolean modifierUser(Utilisateur u) {
+        String req = "update user set username = ? , lastname = ? ,tel = ?  where id = ? ";
+        try {
+            PreparedStatement ps = MyConnection.getInstance().getCnx().prepareStatement(req);
+            ps.setString(1, u.getUsername());
+            ps.setString(2, u.getLastname());
+            ps.setString(3, u.getTel());
+            ps.setInt(4, u.getId());
+            ps.executeUpdate();
+            System.out.println("user Modifyed !");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
     
       public boolean verifierEmailBd(String email) { //Controle De Saisie si mail existe
         PreparedStatement stmt = null;
