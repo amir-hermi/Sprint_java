@@ -318,4 +318,16 @@ public class PanierService {
         }
         return null;
     }
+    
+     public void setStripeIdForCustomer(String id , Utilisateur u) {
+    String requette = "UPDATE utilisateur SET stripeCustomerId='"+id+"' WHERE id="+u.getId()+";";
+        try {
+            Statement st = MyConnexion.getInstance().getCnx().createStatement();
+            st.executeUpdate(requette); //select nestaamlou executequery
+            System.out.println("StripeId updated");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        
+    }
 }

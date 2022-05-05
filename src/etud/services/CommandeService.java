@@ -112,6 +112,16 @@ public class CommandeService {
         return listCommande(id).get(0);
         
     }
+      public void deleteCommande(Commande c) {
+    String requette = "DELETE FROM `commande` WHERE id="+c.getId();
+        try {
+            Statement st = MyConnexion.getInstance().getCnx().createStatement();
+            st.executeUpdate(requette); //select nestaamlou executequery
+            System.out.println("Commande deleted");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }        
+    }
        public List<Commande> rechercheCommande(String value){
                      List<Commande> myList = new ArrayList<>();
 

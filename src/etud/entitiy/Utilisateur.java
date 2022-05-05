@@ -17,7 +17,7 @@ public class Utilisateur implements Serializable{
     private String username,lastname,email ,tel , password , etat;
     private Panier panier;
     private ArrayList<Commande>listCommande;
-    private String StripeCustomerId;
+    private String stripeCustomerId;
 
     public Utilisateur() {
     }
@@ -37,11 +37,11 @@ public class Utilisateur implements Serializable{
     }
 
     public String getStripeCustomerId() {
-        return StripeCustomerId;
+        return stripeCustomerId;
     }
 
     public void setStripeCustomerId(String StripeCustomerId) {
-        this.StripeCustomerId = StripeCustomerId;
+        this.stripeCustomerId = StripeCustomerId;
     }
 
     public int getId() {
@@ -114,9 +114,10 @@ public class Utilisateur implements Serializable{
 
     @Override
     public String toString() {
-        //return "Utilisateur{" + "username=" + username + ", lastname=" + lastname + ", email=" + email + ", tel=" + tel + ", password=" + password + ", etat=" + etat + ", panier=" + panier + ", listCommande=" + listCommande + '}';
-        return  username ;
+        return "Utilisateur{" + "id=" + id + ", username=" + username + ", lastname=" + lastname + ", email=" + email + ", tel=" + tel + ", password=" + password + ", etat=" + etat + ", panier=" + panier + ", listCommande=" + listCommande + ", StripeCustomerId=" + stripeCustomerId + '}';
     }
+
+    
     
     
 }

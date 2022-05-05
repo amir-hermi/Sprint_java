@@ -30,10 +30,14 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -50,6 +54,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.Spark.port;
@@ -88,7 +95,9 @@ public class HomeController implements Initializable {
     private ComboBox<String> tailleInput;
     private ArrayList<Produit> choosenP = new ArrayList<>();
     private ArrayList<Commande> choosenC = new ArrayList<>();
+    private ArrayList<Produit> choosenRecommandation = new ArrayList<>();
     private boolean isCommandeLayout = false;
+    private boolean recEvent = false;
     @FXML
     private Button inc;
     @FXML
@@ -119,12 +128,15 @@ public class HomeController implements Initializable {
     private Text element;
     @FXML
     private Text mtTot;
+    @FXML
+    private Text label;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        label.setText("Liste des Produits");
         setDetaille();
         final String imageURI2 = new File("E:/Workspace_Dev/java/Sprint_java/panier.png").toURI().toString();
         final Image image2 = new Image(imageURI2);
@@ -138,6 +150,7 @@ public class HomeController implements Initializable {
     }
 
     public void setchoosenProduit(Produit p) {
+        recEvent = false;
         this.choosenP.clear();
         fruitNameLable.setText(p.getNom());
         fruitPriceLabel.setText(String.valueOf(p.getPrix()));
@@ -149,7 +162,10 @@ public class HomeController implements Initializable {
     }
 
     public void setchoosenProduit1(Produit p) {
+        recEvent = false;
+        addToCart.setText("Modifier");
         this.choosenP.clear();
+        this.choosenRecommandation.clear();
         fruitNameLable.setText(p.getNom());
         fruitPriceLabel.setText(String.valueOf(p.getPrix()));
         qteInput.setText(String.valueOf(p.getQantite()));
@@ -159,16 +175,34 @@ public class HomeController implements Initializable {
         fruitImg.setImage(image);
         this.choosenP.add(p);
     }
+     public void setchoosenProduitRec(Produit p) {
+         recEvent = true;
+        this.choosenP.clear();
+        addToCart.setText("Ajouter");
+        fruitNameLable.setText(p.getNom());
+        fruitPriceLabel.setText(String.valueOf(p.getPrix()));
+        qteInput.setText(String.valueOf(p.getQantite()));
+        tailleInput.getSelectionModel().select(p.getTaille());
+        final String imageURI = new File("C:/Users/hp/Desktop/amirtawtaw/public/images/" + p.getImage()).toURI().toString();
+        final Image image = new Image(imageURI);
+        fruitImg.setImage(image);
+        this.choosenRecommandation.add(p);
+    }
 
     public void setchoosenCommande(Commande c) {
+        recEvent = false;
         this.choosenC.clear();
         fruitNameLable.setText(c.getReference());
         fruitPriceLabel.setText("");
         tailleInput.getSelectionModel().select(c.getStatus());
+        
 
         // image = new Image(getClass().getResourceAsStream("E:\\Workspace_Dev\\java\\SportTechJava\\activshop_panier_logo.png"));
         //fruitImg.setImage(image);
         this.choosenC.add(c);
+        final String imageURI = new File("E:/Workspace_Dev/java/Sprint_java/images/"+c.getId()+".png").toURI().toString();
+        final Image image = new Image(imageURI);
+        fruitImg.setImage(image);
     }
 
     @FXML
@@ -183,22 +217,23 @@ public class HomeController implements Initializable {
         int qte = Integer.parseInt(qteInput.getText());
         String taille = this.tailleInput.getValue();
         //si la page est commande on modifie le produit
-        if (PanierLayout.isVisible()) {
-
+        if (PanierLayout.isVisible() && recEvent==false) {
             ps.UpdateProduit(this.choosenP.get(0).getId(), qte, taille);
             this.total = 0;
-            //Alert alert = new Alert(Alert.AlertType.WARNING, "Produit existe dans panier");
-            //alert.show();
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Produit modifier avec succes");
+            alert.show();
             //update les information de prodduit 
-            showPanier(event);
-            // setchoosenProduit1(this.choosenP.get(0));
+             showPanier();
+             this.choosenP = this.choosenP;
         } else if (isCommandeLayout) {
             CommandeService cs = new CommandeService();
             cs.UpdateCommande(choosenC.get(0).getId(), tailleInput.getValue());
             Alert alert = new Alert(Alert.AlertType.WARNING, "Commande modifier avec succes");
             alert.show();
             showCommande(event);
-        } else {
+        
+        }else
+        {
             // si la page est listProduit on ajoute le produit au panier
             // Utilisateur u =new Utilisateur(1);
             for (Panier panier : ps.listPanier(1)) {
@@ -249,8 +284,16 @@ public class HomeController implements Initializable {
     }
 
     public void showPanier() {
+        recEvent = false;
+        addToCart.setVisible(true);
+        tailleInput.setVisible(true);
+        tailleText.setVisible(true);
+        label.setText("Panier");
         setDetaille();
+        isCommandeLayout = false;
         delete.setVisible(true);
+        qteLayout.setVisible(true);
+        orLayout.setVisible(true);
         scroll2.setVisible(true);
         scroll.setPrefWidth(350);
         chosenFruitCard.setStyle("-fx-background-color: #009B5A;\n"
@@ -277,11 +320,12 @@ public class HomeController implements Initializable {
             list = panier.getListPorduits();
         }
         if (list.size() > 0) {
-            setchoosenProduit1(cs.afficheProduit().get(0));
+            setchoosenProduit1(list.get(0));
             listener = new MyListener() {
                 @Override
                 public void onClickListener(Produit p) {
                     setchoosenProduit1(p);
+                    
                 }
             };
 
@@ -308,7 +352,21 @@ public class HomeController implements Initializable {
             int colm1 = 0;
             int row1 = 1;
             try {
-                Utilisateur u = new Utilisateur(1);
+                 Utilisateur u = new Utilisateur(1);
+                ArrayList<Produit> listRecommondation = new ArrayList<>();
+        for (Produit produit : cs.Recommandation(u)) {
+            listRecommondation.add(produit);
+        }
+                if (list.size() > 0) {
+            listener = new MyListener() {
+                @Override
+                public void onClickListener(Produit p) { 
+                    setchoosenProduitRec(p);
+                }
+            };
+
+        }
+               
                 for (Produit p : cs.Recommandation(u)) {
                     FXMLLoader fxmlloader = new FXMLLoader();
                     fxmlloader.setLocation(getClass().getResource("ProduitComponent.fxml"));
@@ -335,6 +393,8 @@ public class HomeController implements Initializable {
 
     @FXML
     private void passerCommande(ActionEvent event) {
+        
+        Stage showPayment = new Stage();
         if (total == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Vous devez remplir la panier");
             alert.show();
@@ -342,26 +402,39 @@ public class HomeController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "vous voulez passer la commande ?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                  CommandeService cs = new CommandeService();
-                PanierService ps = new PanierService();
-                Commande c = new Commande();
-                Utilisateur u = new Utilisateur(1);
-                ArrayList<Produit> list = new ArrayList<>();
-                for (Panier panier : ps.listPanier(1)) {
-                list = panier.getListPorduits();
+                try {
+
+                    CommandeService cs = new CommandeService();
+                    PanierService ps = new PanierService();
+                    Commande c = new Commande();
+                    Utilisateur u = new Utilisateur(1);
+                    ArrayList<Produit> list = new ArrayList<>();
+                    for (Panier panier : ps.listPanier(1)) {
+                        list = panier.getListPorduits();
+                    }
+                    String date = LocalDateTime.now().toString();
+                    c.setMontant(total);
+                    c.setProduits(list);
+                    c.setUser(u);
+                    c.setStatus("En attente");
+                    c.setReference(String.valueOf(new Random().nextInt(9999999)));
+                    c.setDate_creation(date);
+                    cs.ajoutCommande(c);
+                    total = 0;
+                    Stage close = (Stage) this.addToCart.getScene().getWindow();
+                    close.close();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("PaymentGUI.fxml"));
+                    Parent root = loader.load();
+                    PaymentGUIController pc = loader.getController();
+                    pc.setData(c);
+                    Scene scene = new Scene(root, 400, 400);
+                    showPayment.setScene(scene);
+                    showPayment.setTitle("Payment");
+                    showPayment.show();
+                    //showPanier(event);
+                } catch (IOException ex) {
+                    System.err.println(ex.getMessage());
                 }
-                String date = LocalDateTime.now().toString();
-                c.setMontant(total);
-                c.setProduits(list);
-                c.setUser(u);
-                c.setStatus("En attente");
-                c.setReference(String.valueOf(new Random().nextInt(9999999)));
-                c.setDate_creation(date);
-                cs.ajoutCommande(c);
-                Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Commande effectuer avec succes");
-                alert1.show();
-                total = 0;
-                showPanier(event);
             }
 
         }
@@ -369,13 +442,15 @@ public class HomeController implements Initializable {
 
     @FXML
     private void showCommande(ActionEvent event) {
+        addToCart.setVisible(false);
+        tailleInput.setVisible(false);
+        tailleText.setVisible(false);
+        label.setText("Commandes");
         setDetaille();
         delete.setVisible(false);
         scroll2.setVisible(false);
         scroll.setPrefWidth(1200);
-        final String imageURI = new File("E:/Workspace_Dev/java/Sprint_java/edit.png").toURI().toString();
-        final Image image = new Image(imageURI);
-        fruitImg.setImage(image);
+       
         chosenFruitCard.setStyle("-fx-background-color: #B018F5;\n"
                 + "    -fx-background-radius: 30;");
         isCommandeLayout = true;
@@ -448,6 +523,10 @@ public class HomeController implements Initializable {
     }
 
     private void showProduits() {
+        addToCart.setVisible(true);
+        tailleInput.setVisible(true);
+        tailleText.setVisible(true);
+        label.setText("Liste des Produits");
         setDetaille();
         addToCart.setText("Ajouter au panier");
         isCommandeLayout = false;

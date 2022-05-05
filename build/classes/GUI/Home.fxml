@@ -59,7 +59,7 @@
                               <Font name="Cambria" size="18.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="search" mnemonicParsing="false" onAction="#search" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@../values/style.css" text="Search" textFill="WHITE" />
+                        <Button fx:id="search" mnemonicParsing="false" onAction="#search" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #ffb84d;" styleClass="search-button" stylesheets="@../values/style.css" text="Search" textFill="WHITE" />
                      </children>
                      <styleClass>
                         <String fx:value="search-box" />
@@ -74,7 +74,7 @@
                      <children>
                         <HBox prefHeight="60.0" prefWidth="335.0">
                            <children>
-                              <ImageView fx:id="delete" fitHeight="36.0" fitWidth="32.0" onMouseClicked="#deleteP" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="delete" fitHeight="32.0" fitWidth="44.0" onMouseClicked="#deleteP" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../delete.png" />
                                  </image>
@@ -97,7 +97,7 @@
                               <Insets left="20.0" top="30.0" />
                            </VBox.margin>
                         </HBox>
-                        <ImageView fx:id="fruitImg" fitHeight="170.0" fitWidth="285.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fruitImg" fitHeight="170.0" fitWidth="163.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../activshop_panier_logo.png" />
                            </image>
@@ -176,7 +176,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="438.0">
                                  <children>
-                                    <Text fill="#803e15" strokeType="OUTSIDE" strokeWidth="0.0" text="Montant Totale :">
+                                    <Text fill="#ff5e00" strokeType="OUTSIDE" strokeWidth="0.0" text="Montant Totale :">
                                        <HBox.margin>
                                           <Insets left="30.0" top="10.0" />
                                        </HBox.margin>
@@ -217,10 +217,13 @@
                                           <Insets left="5.0" />
                                        </HBox.margin>
                                     </TextField>
-                                    <Button fx:id="commander" mnemonicParsing="false" onAction="#passerCommande" prefHeight="31.0" prefWidth="126.0" styleClass="search-button" text="Commader">
+                                    <Button fx:id="commander" mnemonicParsing="false" onAction="#passerCommande" prefHeight="31.0" prefWidth="126.0" style="-fx-background-color: #ffb84d;" styleClass="search-button" text="Commader">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
                                     </Button>
                                  </children>
                               </HBox>
@@ -242,15 +245,21 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" layoutY="-3.0" prefHeight="71.0" prefWidth="786.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#showCommande" prefHeight="31.0" prefWidth="160.0" styleClass="search-button" stylesheets="@../values/style.css" text="Commande">
+                                    <Button mnemonicParsing="false" onAction="#showCommande" prefHeight="31.0" prefWidth="209.0" style="-fx-background-color: #b38f00;" styleClass="search-button" stylesheets="@../values/style.css" text="Commande" textFill="WHITE">
                                        <HBox.margin>
                                           <Insets left="20.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#showProduits" prefHeight="31.0" prefWidth="160.0" styleClass="search-button" stylesheets="@../values/style.css" text="Produits">
+                                    <Button mnemonicParsing="false" onAction="#showProduits" prefHeight="31.0" prefWidth="197.0" style="-fx-background-color: #b38f00;" styleClass="search-button" stylesheets="@../values/style.css" text="Produits" textFill="WHITE">
                                        <HBox.margin>
                                           <Insets left="20.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
                                     </Button>
                                  </children>
                               </HBox>
@@ -308,9 +317,9 @@
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                      </VBox.margin>
                      <children>
-                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="595.0" styleClass="free-delivery-card" stylesheets="@../values/style.css">
+                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="840.0" style="-fx-background-color: #ffb84d;" styleClass="free-delivery-card" stylesheets="@../values/style.css">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Panier">
+                              <Text fx:id="label" strokeType="OUTSIDE" strokeWidth="0.0" text="Panier">
                                  <font>
                                     <Font name="Bell MT Bold" size="32.0" />
                                  </font>
@@ -323,7 +332,7 @@
                      <children>
                         <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="656.0" prefWidth="543.0" styleClass="transparent" stylesheets="@../values/style.css" HBox.hgrow="ALWAYS">
                            <content>
-                              <GridPane fx:id="grid" prefHeight="664.0" prefWidth="515.0">
+                              <GridPane fx:id="grid" prefHeight="664.0" prefWidth="700.0">
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" />
                                  </rowConstraints>
@@ -336,9 +345,9 @@
                               <Insets />
                            </HBox.margin>
                         </ScrollPane>
-                        <ScrollPane fx:id="scroll2" fitToHeight="true" fitToWidth="true" prefHeight="676.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+                        <ScrollPane fx:id="scroll2" cacheShape="false" centerShape="false" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" hmin="1.0" prefHeight="676.0" prefWidth="350.0" scaleShape="false" snapToPixel="false" stylesheets="@../values/style.css" vbarPolicy="NEVER" vmax="0.0" vmin="1.0" HBox.hgrow="ALWAYS">
                            <content>
-                              <VBox alignment="TOP_CENTER" cache="true" mouseTransparent="true" prefHeight="660.0" prefWidth="425.0" snapToPixel="false" style="-fx-background-color: #e1e1ea; -fx-background-insets: 0.0 5.0 0.0 5.0; -fx-border-radius: 5.0;">
+                              <VBox alignment="TOP_CENTER" cacheShape="false" pickOnBounds="false" prefHeight="660.0" prefWidth="425.0" style="-fx-background-color: #e1e1ea; -fx-background-radius: 40;">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recommandation">
                                        <font>
@@ -354,6 +363,9 @@
                                       </rowConstraints>
                                     </GridPane>
                                  </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
                               </VBox>
                            </content>
                         </ScrollPane>

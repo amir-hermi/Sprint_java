@@ -16,8 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -31,35 +30,62 @@ public class AdresseController implements Initializable {
     @FXML
     private TextField adresse;
     @FXML
-    private TableView<String> table;
- ObservableList<String> list;
-    @FXML
-    private TableColumn<String, String> res;
+    ListView<String> list;
+    ObservableList<String> arr = FXCollections.observableArrayList("Java", "JTaL", "CSS");
+ObservableList<String> res = FXCollections.observableArrayList();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-                    ArrayList<String> resultat = new ArrayList<>();
-
-        table.setVisible(false);
-        resultat.add("jendouba");
-            resultat.add("Tunis");
-            try {
-            res.setCellValueFactory(new PropertyValueFactory<String, String>(""));
-
-             list = FXCollections.observableArrayList(resultat);
-            table.setItems(list);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+        list.setVisible(false);
+        remplirList(arr);
         adresse.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!newValue.equals(" ")){
-                table.setVisible(true);
-                
+            if (!resultatContains(newValue).isEmpty()) {
+                try{
+                list.setVisible(true);
+                remplirList(resultatContains(newValue));    
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }
+                 
             }
-           
+
         });
-    }    
+        
+        
+        list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try{
+              adresse.setText(newValue);
+              list.getSelectionModel().clearSelection();
+            remplirList(resultatContains(newValue));  
+            }catch (Exception ex){
+                System.err.println(ex.getMessage());
+            }
+            
+        });
+    }
     
+
+    public ObservableList<String> resultatContains(String value) {
+        res.clear();
+        try{
+          this.arr.stream().filter(e -> e.toLowerCase().contains(value.toLowerCase())).forEach(e -> {
+            res.add(e);
+        });
+        if (res.isEmpty()){
+            list.setVisible(false);
+        }else{
+            list.setVisible(true);
+        }  
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return res;
+    }
+    public void remplirList(ObservableList<String> l){
+        list.setItems(l);
+    }
+
 }

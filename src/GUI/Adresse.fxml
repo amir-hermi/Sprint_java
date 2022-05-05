@@ -1,20 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AdresseController">
+<AnchorPane id="AnchorPane" prefHeight="268.0" prefWidth="556.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AdresseController">
    <children>
-      <VBox layoutX="219.0" layoutY="106.0" prefHeight="200.0" prefWidth="162.0">
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField fx:id="adresse" />
-            <TableView fx:id="table" fixedCellSize="-2.0" prefHeight="200.0" prefWidth="200.0">
-               <columns>
-                  <TableColumn fx:id="res" prefWidth="161.0" text="res" />
-               </columns></TableView>
+            <HBox prefHeight="220.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="50.0" top="50.0" />
+                     </HBox.margin>
+                  </Text>
+                  <VBox prefHeight="200.0" prefWidth="162.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <TextField fx:id="adresse">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </TextField>
+                        <ListView fx:id="list" prefHeight="200.0" prefWidth="200.0" visible="false" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="15.0" right="200.0" top="45.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="544.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="152.0" style="-fx-background-color: green;" text="Carte bancaire" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefWidth="152.0" style="-fx-background-color: yellow;" text="Espece" HBox.hgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets bottom="50.0" />
+               </padding>
+            </HBox>
          </children>
       </VBox>
    </children>

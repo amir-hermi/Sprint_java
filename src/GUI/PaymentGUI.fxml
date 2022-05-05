@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="494.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PaymentGUIController">
+   <children>
+      <VBox layoutY="6.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="756.0" style="-fx-background-color: #E8E8E8;" VBox.vgrow="ALWAYS">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Detaille de payement">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Text>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="78.0" prefWidth="529.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ImageView fx:id="img1" fitHeight="47.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/img1.png" />
+                           </image></ImageView>
+                        <ImageView fx:id="img2" fitHeight="47.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../../images/img2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="img3" fitHeight="47.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../../images/img3.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox fx:id="showError" alignment="CENTER" disable="true" prefHeight="70.0" prefWidth="550.0" style="-fx-background-radius: 10; -fx-background-color: red;" stylesheets="@../values/style.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <Text fx:id="error" strokeType="OUTSIDE" strokeWidth="0.0" text="error">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Text>
+               </children>
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Detaille du carte">
+               <VBox.margin>
+                  <Insets left="10.0" top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="nom" promptText="Nom">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Numero du carte">
+               <VBox.margin>
+                  <Insets left="10.0" top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="number" promptText="4242424242424242  16">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <HBox prefHeight="128.0" prefWidth="756.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="234.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CVC">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="cvc" promptText="ex : 314">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="128.0" prefWidth="234.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mois d'expiration">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="exp_month" promptText="ex : 4">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="128.0" prefWidth="234.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Année d'expiration">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="exp_year" promptText="ex : 2023">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="confirmer" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#Confirmer" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: green;" text="Confirmer" textFill="WHITE" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="annuler" mnemonicParsing="false" onAction="#annuler" prefWidth="150.0" style="-fx-background-color: red;" text="Annuler" textFill="WHITE" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
